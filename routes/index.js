@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET crisviga page. */
-router.get('/crisviga', function(req, res, next) {
-  res.render('crisviga', { title: 'Crisviga' });
+router.get('/about', function(req, res, next) {
+  res.render('crisviga', { title: 'Acerca de suver' });
 });
 
 module.exports = router;
