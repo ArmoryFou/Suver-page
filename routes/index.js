@@ -7,8 +7,13 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET crisviga page. */
-router.get('/about', function(req, res, next) {
-  res.render('crisviga', { title: 'Acerca de suver' });
+router.get('/bestmoments', function(req, res, next) {
+  res.render('crisviga', { title: 'Best moments' });
+});
+
+/* GET ooc page. */
+router.get('/ooc', function(req, res, next) {
+  res.render('ooc', { title: 'Out of context' });
 });
 
 module.exports = router;
