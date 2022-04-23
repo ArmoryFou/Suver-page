@@ -16,4 +16,9 @@ router.get('/ooc', function(req, res, next) {
   res.render('ooc', { title: 'Out of context' });
 });
 
+/* GET demonlist page. */
+router.get('/demonlist', function(req, res, next) {
+  res.render('demonlist', { title: 'Demonlist de Suver' });
+});
+
 module.exports = router;

@@ -261,3 +261,22 @@ body {
     grid-template-columns: 1, 1fr;
   }
 }
+
+.imgdemon{
+  height: 150px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.card-title {
+  text-align: left;
+}
+
+.card-text{
+  text-align: left;
+}
+
+.card {
+  position: absolute;
+  left: 250px;
+}
