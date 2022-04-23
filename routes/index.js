@@ -21,4 +21,9 @@ router.get('/demonlist', function(req, res, next) {
   res.render('demonlist', { title: 'Demonlist de Suver' });
 });
 
+/* GET demonlist page. */
+router.get('/demonlist', function(req, res, next) {
+  res.render('demonlist', { title: 'Demonlist de Suver' });
+});
+
 module.exports = router;
