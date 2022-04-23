@@ -157,6 +157,7 @@ body {
   grid-gap: 25px;
   max-width: 1000px;
   margin: auto;
+  margin-top: 100px;
 }
 
 .post-img-1{
@@ -263,7 +264,7 @@ body {
 }
 
 .imgdemon{
-  height: 150px;
+  height: 41%;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -278,5 +279,18 @@ body {
 
 .card {
   position: absolute;
-  left: 250px;
+  left: 15%;
+  height: 155px;
+}
+
+.text-left{
+  position: absolute;
+  left: 5%;
+  margin: 10%;
+}
+
+.yv{
+  position: absolute;
+  margin-top: 8%;
+  margin-left: 3%;
 }
