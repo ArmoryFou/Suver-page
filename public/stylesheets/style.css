@@ -250,7 +250,7 @@ a {
   transform: translateY(-2px);
 }
 
-@media (max-width: 840px){
+@media (max-width: 720px){
   .content{
     grid-template-columns: repeat(2, 1fr);
   }
@@ -292,10 +292,16 @@ a {
 
 .yv{
   position: absolute;
-  margin-top: 9%;
+  margin-top: 15%;
   margin-left: 7%;
 }
 
 .blockquote-footer{
   color: #fff !important;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 1000px;
+
 }
