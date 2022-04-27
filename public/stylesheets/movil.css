@@ -60,26 +60,40 @@
   }
 
   .navbar .navbar-toggler {
-    border-color: #fff;
-    width: 100px;
-    height: 80px;
+    width: 87px;
+    height: 87px;
     position: relative;
-    right: 35px;
+    right: 10px;
   }
 
+  .bb {
+    width: 55px;
+    height: 8px;
+    background-color: black;
+    margin: 7px 0;
+    position: relative;
+    left: 3px;
+    border-radius: 5px;
+  }
+
+  .navbar .navbar-toggler:active {
+    background-image: url(../images/yesis.jpeg) !important;
+    background-size: 87px;
+  }
   .navbar .navbar-collapse,
   .navbar .navbar-form {
     border-color: #ecf0f1;
   }
   
   .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item {
-    color: #ecf0f1;
+    color: #9b59b6;
+    background-color: #9b59b6;
   }
   .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:hover,
   .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item:focus {
-    color: #ecdbff;
+    color: #9b59b6;
   }
   .navbar-expand .navbar-nav .show .dropdown-menu .dropdown-item.active {
-    color: #ecdbff;
+    color: #9b59b6;
     background-color: #7a259d;
   }
