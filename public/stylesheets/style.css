@@ -44,7 +44,7 @@ a {
 
 .post-list{
   display: flex;
-  min-height: 150vh;
+  min-height: 95vh;
   align-items: center;
   justify-content: center;
   padding: 30px 15px;
@@ -185,6 +185,7 @@ a {
 }
 
 .text-left{
+  text-align: left;
   position: absolute;
   left: 5%;
   margin: 10%;
@@ -193,9 +194,9 @@ a {
 }
 
 .yv{
-  position: absolute;
-  margin-top: 15%;
-  margin-left: 7%;
+  position: relative;
+  right: 350px;
+  margin-top: 8.5%;
 }
 
 .blockquote-footer{
@@ -346,4 +347,69 @@ a {
 
 .contenedor{
   text-align: center;
+}
+
+
+
+a{color: #000;}
+h1{
+  font-size: 2.6rem;
+  line-height: 2.6rem;
+}
+.contentA{
+  margin: 0 auto;
+  max-width: 90%;
+  width: 720px;
+}
+main{
+  padding: 1% 0;
+  position: relative;
+  background: #f5f5f5;
+  box-shadow: 0px -10px 60px rgba(0,0,0,0.25);
+    height: 100%;
+}
+footer p{
+  font-size: .8rem;
+  font-weight: bold;
+  color: #ccc;
+}
+footer a{color: #ccc;}
+/* --- Important Pen Styles --- */
+
+.zoom{
+  overflow: hidden;
+  padding-bottom: 55%;
+}
+.zoom img{
+  position: fixed;
+  top: 0%;
+  left: 50%;
+  max-width: 200%;
+  width: 100%;
+  transform: translateX(-50%);
+  /* Thanks  @bastian_fiessinger. Use when activating blur effect:
+  will-change: -webkit-filter, filter, transform; */
+}
+@media (max-width: 667px) {
+  h1{
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    text-align: left;
+  }
+  .content{
+    margin: 0 auto;
+    max-width: 90%;
+    width: 100%;
+    height: 100%;
+    text-align: justify;
+  }
+  .zoom{
+    overflow: hidden;
+    padding-bottom: 75%;
+  }
+
+}
+
+.parrafo1{
+  box-sizing: border-box;
 }

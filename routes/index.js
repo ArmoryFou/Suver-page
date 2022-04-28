@@ -51,5 +51,9 @@ router.post("/register", async (req, res, next) =>{
   });
 });
 
+/* GET login page. */
+router.get('/articles/armorypage', function(req, res, next) {
+  res.render('articles/ArmoryPage', { title: 'ArmoryPage' });
+});
 
 module.exports = router;
