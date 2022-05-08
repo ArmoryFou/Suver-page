@@ -35,7 +35,6 @@
     width: 100%;
 }
 
-
 .link-demon {
     text-decoration: none;
     color: rgb(0, 0, 0);
@@ -49,7 +48,7 @@
     position: relative;
     left: 60%;
     height: 700px;
-    width: 100%;
+    width: 40%;
     
 }
 
@@ -63,11 +62,11 @@
 .submitC{
     position: relative;
     top: 100px !important;
-    width: 350px;
+    width: 60%;
 }
 
 .demonsec{
-    width: 110%;
+    width: 100%;
 }
 
 .btn-primary{
