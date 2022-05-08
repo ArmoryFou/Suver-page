@@ -2,6 +2,8 @@
 <html>
   <head>
     
+
+
     <title><%= title %></title>
     
     <!-- CSS PC -->
@@ -42,6 +44,10 @@
 
     <!-- FONTS -->
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -63,6 +69,21 @@
     <%- include("partials/navigation.html") %>
 
     <h1><%= title %></h1>
+
+    <section class="other">
+      <div class="card submitC" style="max-width: 40%">
+        <div class="row g-0">
+          <h3 class="title">Sube tu progreso!</h3>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfex3MOBVZHpr7wnKYwqHuIVQKpKyJMlkDMtG2w_XzbNNynJg/viewform?usp=sf_link" type="button" class="btn btn-primary">Subir</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="demonsec">
     
     <div class="card mb-3" style="max-width: 40%">
         <div class="row g-0">
@@ -224,6 +245,7 @@
         </div>
       </div>
 
+    </section>
 
 
   </body>
