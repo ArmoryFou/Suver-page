@@ -1,0 +1,42 @@
+.imgdemon {
+    height: 42%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    position: relative;
+    bottom: 2px;
+    right: 1px;
+}
+
+.card-title {
+    text-align: left;
+}
+
+.card-text {
+    text-align: left;
+}
+
+.card-body {
+    outline: none;
+    text-decoration: none;
+    color: #000;
+}
+
+.card {
+    position: absolute;
+    left: 150px;
+    height: 155px;
+    background-color: rgb(241, 232, 232) !important;
+    border-width: 3px !important;
+    border-color: rgb(169, 167, 167) !important;
+    border-radius: 3px;
+    box-shadow: 3px 4px 3px rgba(0, 0, 0, 0.2);
+}
+
+.link-demon {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.link-demon:hover {
+    color: #000000;
+}

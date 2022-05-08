@@ -1,0 +1,94 @@
+{
+    "Demonlist": {
+        "Top1": {
+            "title": "Top 1",
+            "name": "Deception Dive",
+            "id": "34379100",
+            "creator": "Rustam",
+            "Difficulty": "Extreme Demon",
+            "Score": 1000,
+            "video": "https://www.youtube.com/embed/fxrT6CNz8SM"
+        },
+        "Top2": {
+            "title": "Top 2",
+            "name": "Cataclysm",
+            "id": "3979721",
+            "creator": "Ggboy",
+            "Difficulty": "Extreme Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/HlXu_vEYO5U"
+        },
+        "Top3": {
+            "title": "Top 3",
+            "name": "Old Cataclysm",
+            "id": "17153335",
+            "creator": "SrGuillester",
+            "Difficulty": "Extreme Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/LZAGK7VQN4E&t=4s"
+        },
+        "Top4": {
+            "title": "Top 4",
+            "name": "Reverie",
+            "id": "62419638",
+            "creator": "GaidenHertuny",
+            "Difficulty": "Insane Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/4XSUqcUeAFg"
+        },
+        "Top5": {
+            "title": "Top 5",
+            "name": "Memories III",
+            "id": "72651677",
+            "creator": "The4nima",
+            "Difficulty": "Insane Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/1XjKoUa43J8"
+        },
+        "Top6": {
+            "title": "Top 6",
+            "name": "Crazy III",
+            "id": "73725400",
+            "creator": "DavJT",
+            "Difficulty": "Insane Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/MYn4GdZNk7c"
+        },
+        "Top7": {
+            "title": "Top 7",
+            "name": "Project Reunion",
+            "id": "65129353",
+            "creator": "GrenadeofTacos",
+            "Difficulty": "Insane Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/lb0zd0uWuIYM"
+        },
+        "Top8": {
+            "title": "Top 8",
+            "name": "X adventure",
+            "id": "18286611",
+            "creator": "Pasiblitz",
+            "Difficulty": "Insane Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/Uh_ODRBVZ3Q"
+        },
+        "Top9": {
+            "title": "Top 9",
+            "name": "Future Funk II",
+            "id": "59626284",
+            "creator": "JonathanGD",
+            "Difficulty": "Insane Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/WymfD6ybd3A"
+        },
+        "Top10": {
+            "title": "Top 10",
+            "name": "Leyak",
+            "id": "61137742",
+            "creator": "Enzore",
+            "Difficulty": "Insane Demon",
+            "Score": "",
+            "video": "https://www.youtube.com/embed/fxrT6CNz8SM"
+        }
+    }
+}

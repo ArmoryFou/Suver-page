@@ -7,12 +7,13 @@ require("dotenv").config({path: "./env/.env"});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const { fstat } = require('fs');
+var demonlistRouter = require('./routes/demonlist');
+const { fs } = require('fs');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 const bcryptjs = require("bcryptjs");
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/demonlist', demonlistRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

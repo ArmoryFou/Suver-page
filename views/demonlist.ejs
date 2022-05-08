@@ -1,13 +1,65 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="icon" href="images/suveradaicon.ico">
+    
     <title><%= title %></title>
-    <link rel="stylesheet" media="only screen and (min-width: 1000px)" href="/stylesheets/style.css" /> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <!-- CSS PC -->
+
+    <link rel="icon" href="images/suveradaicon.ico" />
+    <link
+      rel="stylesheet"
+      media="only screen and (min-width: 1000px)"
+      href="/stylesheets/pc/general.css"
+    />
+    <link
+      rel="stylesheet"
+      media="only screen and (min-width: 1000px)"
+      href="/stylesheets/pc/navbar.css"
+    />
+    <link
+      rel="stylesheet"
+      media="only screen and (min-width: 1000px)"
+      href="/stylesheets/pc/demonlist.css"
+    />
+
+    <!-- CSS MOVIL -->
+
+    <link
+      rel="stylesheet"
+      media="only screen and (max-width: 1000px)"
+      href="stylesheets/movil/movil.css"
+    />
+
+    <!-- BOOTSTRAP -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <!-- FONTS -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Armata&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   </head>
   <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    
     <%- include("partials/navigation.html") %>
 
     <h1><%= title %></h1>
@@ -15,12 +67,14 @@
     <div class="card mb-3" style="max-width: 40%">
         <div class="row g-0">
           <div class="col-md-4">
-            <a href="https://youtu.be/fxrT6CNz8SM"><img src="images/deception-dive.jpg" class="imgdemon" ></a>
+            <a href="https://youtu.be/fxrT6CNz8SM" "><img src="images/deception-dive.jpg" class="imgdemon" ></a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
+              <a href="/demonlist/1" class="link-demon">
               <h5 class="card-title">#1 - Deception dive</h5>
-              <p class="card-text"><i>by rustam</i></p>
+              </a>
+              <p class="card-text"><i>by Rustam</i></p>
             </div>
           </div>
         </div>
@@ -29,12 +83,14 @@
       <div class="card mb-3" style="max-width: 40%">
         <div class="row g-0">
           <div class="col-md-4">
-            <a href="https://youtu.be/fxrT6CNz8SM"><img src="images/deception-dive.jpg" class="imgdemon" ></a>
+            <a href="https://www.youtube.com/watch?v=HlXu_vEYO5U" "><img src="images/cataclysm.jpg" class="imgdemon" ></a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">#2 - Deception dive</h5>
-              <p class="card-text"><i>by rustam</i></p>
+              <a href="/demonlist/2" class="link-demon">
+              <h5 class="card-title">#2 - Cataclysm</h5>
+              </a>
+              <p class="card-text"><i>by Ggboy</i></p>
             </div>
           </div>
         </div>
@@ -43,21 +99,132 @@
       <div class="card mb-3" style="max-width: 40%">
         <div class="row g-0">
           <div class="col-md-4">
-            <a href="https://youtu.be/fxrT6CNz8SM"><img src="images/deception-dive.jpg" class="imgdemon" ></a>
+            <a href="https://www.youtube.com/watch?v=LZAGK7VQN4E&t=4s" "><img src="images/old-cataclysm.jpg" class="imgdemon" ></a>
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">#3 - Deception dive</h5>
-              <p class="card-text"><i>by rustam</i></p>
+              <a href="/demonlist/3" class="link-demon">
+              <h5 class="card-title">#3 - Old cataclysm</h5>
+              </a>
+              <p class="card-text"><i>by SrGuillester</i></p>
             </div>
           </div>
         </div>
       </div>
 
+      <div class="card mb-3" style="max-width: 40%">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="https://www.youtube.com/watch?v=4XSUqcUeAFg" "><img src="images/reverie.jpg" class="imgdemon" ></a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="/demonlist/4" class="link-demon">
+              <h5 class="card-title">#4 - Reverie</h5>
+              </a>
+              <p class="card-text"><i>by GaidenHertuny</i></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3" style="max-width: 40%">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="https://www.youtube.com/watch?v=1XjKoUa43J8" "><img src="images/memoriesiii.jpg" class="imgdemon" ></a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="/demonlist/5" class="link-demon">
+              <h5 class="card-title">#5 - Memories III</h5>
+              </a>
+              <p class="card-text"><i>by The4nima</i></p>
+            </div>
+          </div>
+        </div>
+      </div>
  
+      <div class="card mb-3" style="max-width: 40%">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="https://www.youtube.com/watch?v=MYn4GdZNk7c" "><img src="images/crazyiii.jpg" class="imgdemon" ></a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="/demonlist/6" class="link-demon">
+              <h5 class="card-title">#6 - Crazy III</h5>
+              </a>
+              <p class="card-text"><i>by DavJT</i></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="card mb-3" style="max-width: 40%">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="https://www.youtube.com/watch?v=lb0zd0uWuIY" "><img src="images/project-reunion.jpg" class="imgdemon" ></a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="/demonlist/7" class="link-demon">
+              <h5 class="card-title">#7 - Project reunion</h5>
+              </a>
+              <p class="card-text"><i>by GrenadeofTacos</i></p>
+            </div>
+          </div>
+        </div>
+      </div>
       
-      
+      <div class="card mb-3" style="max-width: 40%">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="https://www.youtube.com/watch?v=Uh_ODRBVZ3Q" "><img src="images/x-adventure.jpg" class="imgdemon" ></a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="/demonlist/8" class="link-demon">
+              <h5 class="card-title">#8 - X adventure</h5>
+              </a>
+              <p class="card-text"><i>by Pasiblitz</i></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3" style="max-width: 40%">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="https://www.youtube.com/watch?v=WymfD6ybd3A" "><img src="images/future-funkii.jpg" class="imgdemon" ></a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="/demonlist/9" class="link-demon">
+              <h5 class="card-title">#9 - Future Funk II</h5>
+              </a>
+              <p class="card-text"><i>by JonathanGD</i></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3" style="max-width: 40%">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="https://www.youtube.com/watch?v=LmHJGr4LjuQ" "><img src="images/leyak.jpg" class="imgdemon" ></a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="/demonlist/10" class="link-demon">
+              <h5 class="card-title">#10 - Leyak</h5>
+              </a>
+              <p class="card-text"><i>by Enzore</i></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
 
   </body>
 </html>

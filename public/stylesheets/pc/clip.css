@@ -1,0 +1,16 @@
+.text-left {
+    text-align: left;
+    position: absolute;
+    left: 5%;
+    margin: 10%;
+    margin-top: 3%;
+    color: #fff !important;
+}
+
+.yv {
+    margin: 8.5% 5%;
+}
+
+.blockquote-footer {
+    color: #fff !important;
+}
