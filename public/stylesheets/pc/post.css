@@ -16,8 +16,23 @@
     margin-top: 100px;
 }
 
+.post-img-1a {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    transition: .2s;
+}
+
 .post-img-1 {
-    background: url(../../images/squirtle.jpg);
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    transition: .2s;
+}
+
+.post-img-2a {
     width: 100%;
     height: 200px;
     background-size: cover;
@@ -26,7 +41,14 @@
 }
 
 .post-img-2 {
-    background: url(../../images/umbreon.png);
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    transition: .2s;
+}
+
+.post-img-3a {
     width: 100%;
     height: 200px;
     background-size: cover;
@@ -35,7 +57,6 @@
 }
 
 .post-img-3 {
-    background: url(../../images/cuy.jpg);
     width: 100%;
     height: 200px;
     background-size: cover;
@@ -60,12 +81,6 @@
     height: 200px;
     overflow: hidden;
     cursor: pointer;
-}
-
-.post:hover .post-img-1,
-.post:hover .post-img-2,
-.post:hover .post-img-3 {
-    transform: scale(1.1);
 }
 
 .post-body {
