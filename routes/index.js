@@ -5,7 +5,7 @@ const connection = require("../database/db.js");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Crisviga' });
+  res.render('index', { title: 'Suver' });
 });
 
 /* GET bestmoments page. */
