@@ -34,14 +34,14 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post("/register", async (req, res, next) =>{
-  const user = req.body.user;
+  const name = req.body.name;
   const pass = req.body.pass;
   let passwordush = await bcryptjs.hash(pass, 8);
-  connection.query("INSERT INTO users SET ?", {user: user, pass:passwordush}, async(error, results) => {
+  connection.query("INSERT INTO user SET ?", {name: name, pass:passwordush}, async(error, results) => {
     if(error){
       console.log(error);
     } else{
-      res.render("registerDone", {name: user});
+      res.render("registerDone", {name: name});
     }
   });
 });

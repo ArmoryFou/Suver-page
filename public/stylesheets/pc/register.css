@@ -72,8 +72,8 @@
 
 .loginb {
     background-color: #7d309c !important;
-    width: 7% !important;
-    padding: 10px !important;
+    width: 20% !important;
+    padding: 15px !important;
     border: 0 !important;
     box-sizing: border-box !important;
     cursor: pointer !important;
@@ -87,6 +87,10 @@
 
 .contenedor {
     text-align: center;
+    background-color: #9673a9 !important;
+    height: 250px;
+    width: 40%;
+    margin: 5% 30%;
 }
 
 h1{

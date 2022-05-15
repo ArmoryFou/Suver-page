@@ -1,9 +1,11 @@
 function A()
 {
     var img = document.getElementById('post-img-1a');
-    img.src = "";
     img.setAttribute('src', 'images/squirtle.gif');
     img.setAttribute("id", "post-img-1");
+    if(img == ""){
+        
+    }
 }
 
 function GifReset()
@@ -11,7 +13,6 @@ function GifReset()
 var img = document.getElementById('post-img-1');
 img.addEventListener('mouseout', function () {
     var imageUrl = img.src;
-    img.src = "";
     img.setAttribute('src', 'images/squirtle.png');
 }, false);
 img.addEventListener('mouseover', function () {
@@ -23,7 +24,7 @@ function A2()
 {
     var img2 = document.getElementById('post-img-2a');
     img2.setAttribute('src', 'images/umbreon.gif');
-    img2.setAttribute("id", "post-img-2");
+    img2.setAttribute("id", "post-img-2")
 }
 
 function GifReset2()
