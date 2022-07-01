@@ -99,7 +99,7 @@ router.post("/auth", async (req, res) => {
           var defaultpp = "https://suver.herokuapp.com/images/default-pp.jpg"
 
           var insertData = `UPDATE users SET pp = ? WHERE user = '${req.session.name}'`;
-    db.query(insertData, [imgsrc], (err, results) => {
+    db.query(insertData, [defaultpp], (err, results) => {
       if (err) throw err;
       console.log("file uploaded");
     });
