@@ -131,7 +131,7 @@ router.use(
 //! Use of Multer
 var storage = multer.diskStorage({
   destination: (req, file, callBack) => {
-    callBack(null, "./public/images/"); // './public/images/' directory name where save the file
+    callBack(null, "./public/images/pps/"); // './public/images/' directory name where save the file
   },
   filename: (req, file, callBack) => {
     const mimeExtension = {
@@ -160,7 +160,7 @@ var upload = multer({
       cb(null, true);
     } else {
       cb(null, false);
-      req.fileError = "File format is not valid";
+      req.fileError = "El formato no es valido";
     }
   },
 });
@@ -172,7 +172,7 @@ router.post("/loading", upload.single("image"), (req, res) => {
     console.log("No file upload");
   } else {
     console.log(req.file.filename);
-    var imgsrc = "https://suver.herokuapp.com/images/" + req.file.filename;
+    var imgsrc = "https://suver.herokuapp.com/images/pps/" + req.file.filename;
     var insertData = `UPDATE users SET pp = ? WHERE user = '${req.session.name}'`;
     db.query(insertData, [imgsrc], (err, results) => {
       if (err) throw err;
