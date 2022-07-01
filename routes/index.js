@@ -25,9 +25,10 @@ router.post("/register", async (req, res, next) => {
   const user = req.body.user;
   const pass = req.body.pass;
   let passwordush = await bcryptjs.hash(pass, 8);
+  var defaultpp = "https://suver.herokuapp.com/images/default-pp.jpg"
   connection.query(
     "INSERT INTO users SET ?",
-    { user: user, pass: passwordush },
+    { user: user, pass: passwordush, pp: defaultpp },
     async (error, results) => {
       if (error) {
         console.log(error);
@@ -96,13 +97,7 @@ router.post("/auth", async (req, res) => {
           console.log(req.session.userid);
           req.session.pp = results[0].pp;
 
-          var defaultpp = "https://suver.herokuapp.com/images/default-pp.jpg"
-
-          var insertData = `UPDATE users SET pp = ? WHERE user = '${req.session.name}'`;
-    db.query(insertData, [defaultpp], (err, results) => {
-      if (err) throw err;
-      console.log("file uploaded");
-    });
+          
 
           res.render("login", {
             alert: true,
