@@ -173,7 +173,7 @@ router.post("/loading", upload.single("image"), (req, res) => {
     console.log("No file upload");
   } else {
     console.log(req.file.filename);
-    var imgsrc = "https://suver.herokuapp.com/" + req.file.filename;
+    var imgsrc = "https://suver.herokuapp.com/images/" + req.file.filename;
     var insertData = `UPDATE users SET pp = ? WHERE user = '${req.session.name}'`;
     db.query(insertData, [imgsrc], (err, results) => {
       if (err) throw err;
