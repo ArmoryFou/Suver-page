@@ -49,6 +49,26 @@
 
     <!-- FONTS -->
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -89,8 +109,8 @@
         <%= description %>
     </p>
 
-    <% if(image == null) {%>
-    <img src="<%= image %>">
+    <% if(image != null) {%>
+    <img src="<%= image %>" class="image">
 
     <% } %>
 </div>
@@ -105,7 +125,7 @@
       <div class="comment mt-4 text-justify float-left">
         <img src="<%=comment.pp%>" alt="" class="rounded-circle" width="40" height="40">
         <a href="/profiles/<%=comment.user_id%>"><%=comment.username%></a>
-        <span>- <%=comment.createdAt%></span>
+        <span>   <%=comment.createdAt.toString().substring(0,21)%></span>
         <br>
         <p><%=comment.comment%></p>
     </div>

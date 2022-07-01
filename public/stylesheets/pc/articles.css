@@ -1,3 +1,11 @@
+h1 {
+  font-family: 'Gentium Book Plus', serif;
+}
+
+p{
+  font-family: 'Nunito', sans-serif;
+}
+
 .container{
     text-align: center;
     position: relative;
@@ -58,6 +66,7 @@
   .comments h3{
     padding: 10px;
     margin: auto;
+    margin-top: 10px;
     text-align: center;
   }
 
@@ -79,6 +88,7 @@
     padding-left: 40px;
     padding-right: 30px;
     padding-top: 10px;
+    width: 100%;
     
 }
 .comment a,.comment span,.darker a,.darker span{
@@ -93,6 +103,22 @@
 .comment a{
   text-decoration: none;
   font-size: 20px;
-  font-weight: bold;
-  margin-left: 5px;
+  margin-left: 15px;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.comment span{
+  font-size: 12px;
+  font-family: 'Oswald', sans-serif;
+  margin-left: 20px;
+}
+
+.comment p{
+  font-family: 'Nunito', sans-serif;
+}
+
+.image {
+  width: 400px;
+  height: auto;
+  margin-bottom: 20px;
 }
