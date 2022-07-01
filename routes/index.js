@@ -97,7 +97,6 @@ router.post("/auth", async (req, res) => {
           console.log(req.session.userid);
           req.session.pp = results[0].pp;
 
-          
 
           res.render("login", {
             alert: true,
