@@ -6,10 +6,26 @@ var logger = require('morgan');
 const bodyParser = require("body-parser")
 require("dotenv").config({path: "./env/.env"});
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var demonlistRouter = require('./routes/demonlist');
 const { fs } = require('fs');
+const Discord = require("discord.js")
+const { Intents } = require("discord.js");
+const { Collection } = require("discord.js");
+const client = new Discord.Client({
+    restTimeOffset: 0,
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+  ],
+  partials: ["MESSAGE", "CHANNEL", "REACTION", "GUILD_MEMBER", "USER"],
+});
+
 
 var app = express();
 
@@ -62,4 +78,8 @@ app.use(express.json({
     extended: false
 })) //parse incoming request body in JSON format.
 
+
+client.login("OTkyNTA1ODY5MjU2Mzc2MzMw.G_1rZY.kqyPNQ3VtGgjAq0nE21aBK4jRaFcWfAZGN6v9s");
+
 module.exports = app;
+

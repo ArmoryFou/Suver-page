@@ -11,6 +11,20 @@ const mongoose = require("mongoose");
 const { Validator } = require("node-input-validator");
 const db2 = require("../database/mongo");
 const BlogComment=require('../models/blogComment');
+const Discord = require("discord.js")
+const { Intents } = require("discord.js");
+const { Collection } = require("discord.js");
+const client = new Discord.Client({
+    restTimeOffset: 0,
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+  ],
+  partials: ["MESSAGE", "CHANNEL", "REACTION", "GUILD_MEMBER", "USER"],
+});
 
 const session = require("express-session");
 router.use(
@@ -132,6 +146,7 @@ router.use(
 var storage = multer.diskStorage({
   destination: (req, file, callBack) => {
     callBack(null, "./public/images/pps/"); // './public/images/' directory name where save the file
+    
   },
   filename: (req, file, callBack) => {
     const mimeExtension = {
