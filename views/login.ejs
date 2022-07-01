@@ -63,12 +63,32 @@
 
     <div class="login-form">
         <h2>Login</h2>
-        <form action="auth" method="post">
+        <form action="/auth" method="post">
             <input type="text" name="user" id="user" placeholder="User" required>
             <input type="password" name="pass" id="pass" placeholder="Password" required>
             <input type="submit" class="btn-login" value="Login">
         </form>
         <p>No tienes una cuenta? <a href="register" class="btn-register">Registate</a></p>
     </div>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <% if(typeof alert != "undefined") { %>
+
+      <script>
+        Swal.fire({
+          title: "<%= alertTitle %>",
+          text: "<%= alertMessage %>",
+          icon: "<%= alertIcon %>",
+          showConfirmButton: <%= showConfirmButton %>,
+          timer: <%= timer %>
+        }).then(()=>{
+          window.location= "/<%= ruta %>"
+        })
+      </script>
+
+      <% } %>
+
+
 </body>
 </html>

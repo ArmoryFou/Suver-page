@@ -63,7 +63,7 @@
     <div class="register-form">
       <h2>Registrate</h2>
       <form action="/register" method="post">
-        <input type="text" name="name" placeholder="Username" required>
+        <input type="text" name="user" placeholder="Username" required>
         <input name="pass" id="pass" type="password" placeholder="Password" onkeyup='check(); glength();' required>
         <input type="password" id="confirmPass" name="confirmPass" placeholder="Confirm Password" onkeyup='check(); glength()' required>
         <div style="display:inline">
@@ -78,6 +78,22 @@
         <span id='message2' class="message"></span>
       </div>
     </div>
-    
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert != "undefined") { %>
+
+      <script>
+        Swal.fire({
+          title: "<%= alertTitle %>",
+          text: "<%= alertMessage %>",
+          icon: "<%= alertIcon %>",
+          showConfirmButton: <%= showConfirmButton %>,
+          timer: <%= timer %>
+        }).then(()=>{
+          window.location= "/<%= ruta %>"
+        })
+      </script>
+
+      <% } %>
 </body>
 </html>

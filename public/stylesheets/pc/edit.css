@@ -1,0 +1,37 @@
+.select, .upload{
+    background-color: #7d309c !important;
+    padding: 15px !important;
+    border: 0 !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    font-size: small !important;
+    color: #fff !important;
+    margin: 40px 25px;
+    height: 55px;
+    border-radius: 3px;
+}
+
+.upload{
+    width: 95px;
+}
+
+.select{
+    width: 80%;
+    max-width: 1200px;
+}
+
+.edit {
+    background-color: #7d309c !important;
+    padding: 15px !important;
+    border: 0 !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    font-size: small !important;
+    color: #fff !important;
+    height: auto !important;
+    width: 80px;
+    position: absolute;
+    left: 50%;
+}

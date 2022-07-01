@@ -1,5 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="../javascripts/stick-navbar.js"></script>
+<script src="javascripts/stick-navbar.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-expand-lg">
     <div class="container-fluid">
@@ -20,6 +20,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/demonlist">Demonlist</a>
           </li>
+
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Mas informacion
@@ -29,6 +30,27 @@
               <li><a class="dropdown-item" href="ooc">suver out of context</a></li>
             </ul>
           </li>
+
+          <% if(login){ %>
+          
+            <li class="nav-item dropdown loginav">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown name" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <%= name %>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/profiles/profile">Profile</a></li>
+                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              </ul>
+            </li>
+
+          <% } else { %>
+
+            <li class="nav-item loginav" >
+              <a class="nav-link" href="/login"><%= name %></a>
+            </li>
+
+            <% }  %>
+
         </ul>
       </div>
     </div>

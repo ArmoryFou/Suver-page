@@ -1,0 +1,32 @@
+.loginb {
+    background-color: #7d309c !important;
+    width: 9% !important;
+    padding: 15px !important;
+    border: 0 !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    font-size: small !important;
+    color: #fff !important;
+    height: auto !important;
+    margin: 25px;
+    
+}
+
+.contenedor {
+    text-align: center;
+    background-color: #9673a9 !important;
+    height: 450px;
+    width: 100%;
+}
+
+.contenedor h3{
+    margin-top: 20px;
+}
+
+  .pp{
+      border-color: black;
+      border: 2px;
+      border-radius: 100px;
+      margin-top: 80px;
+  }
