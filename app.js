@@ -6,17 +6,12 @@ var logger = require('morgan');
 const bodyParser = require("body-parser")
 require("dotenv").config({path: "./env/.env"});
 
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var demonlistRouter = require('./routes/demonlist');
 const { fs } = require('fs');
 
-
 var app = express();
-
-
-
 
 // view engine setup
 app.set('views', __dirname + '/views');
@@ -70,7 +65,4 @@ app.use(express.json({
     extended: false
 })) //parse incoming request body in JSON format.
 
-
-
 module.exports = app;
-
