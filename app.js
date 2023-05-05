@@ -3,7 +3,6 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const bodyParser = require("body-parser")
 require("dotenv").config({path: "./env/.env"});
 
 var indexRouter = require('./routes/index');
@@ -11,12 +10,20 @@ var usersRouter = require('./routes/users');
 var demonlistRouter = require('./routes/demonlist');
 const { fs } = require('fs');
 
+
+
+
 var app = express();
 
 // view engine setup
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 const bcryptjs = require("bcryptjs");
+
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}.`);
+});
 
 const session = require("express-session");
 app.use(session({
@@ -28,9 +35,12 @@ app.use(session({
 const connection = require("./database/db.js");
 const bcrypt = require('bcryptjs/dist/bcrypt');
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/public')));
 
@@ -59,10 +69,5 @@ app.use(function(err, req, res, next) {
     res.render('error');
   }
 });
-
-// Routes Config
-app.use(express.json({
-    extended: false
-})) //parse incoming request body in JSON format.
 
 module.exports = app;

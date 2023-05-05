@@ -226,6 +226,10 @@ router.get("/profiles/:id", async (req, res, next) => {
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
+  if (!req.body) {
+    // If there's no request body, send an error response
+    return res.status(400).send('Request body is missing');
+  }
   if (req.session.loggedin) {
     res.render("index", {
       login: true,

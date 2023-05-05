@@ -6,17 +6,17 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.0",
+    "body-parser": "^1.20.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.8",
-    "express": "~4.16.1",
+    "express": "^4.18.2",
     "express-session": "^1.17.2",
     "flag-icon-css": "^4.1.7",
     "flag-icons": "^6.3.0",
@@ -29,7 +29,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "node-input-validator": "^4.5.0",
-    "package.json": "^2.0.1",
+    "package.json": "^0.0.0",
     "shortid": "^2.2.16",
     "valid-url": "^1.0.9",
     "vercel": "^29.1.1"
