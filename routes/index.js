@@ -26,7 +26,7 @@ router.post("/register", async (req, res, next) => {
   const user = req.body.user;
   const pass = req.body.pass;
   let passwordush = await bcryptjs.hash(pass, 8);
-  var defaultpp = "https://" + process.env.HEROKU_APP_NAME + ".herokuapp.com\/images/default-pp.jpg"
+  var defaultpp = "https://suver-page.vercel.app/images/default-pp.jpg"
   connection.query(
     "INSERT INTO users SET ?",
     { user: user, pass: passwordush, pp: defaultpp },
@@ -174,7 +174,7 @@ router.post("/loading", upload.single("image"), (req, res) => {
     console.log("No file upload");
   } else {
     console.log(req.file.filename);
-    var imgsrc = "https://" + process.env.HEROKU_APP_NAME + ".herokuapp.com\/images/pps/" + req.file.filename;
+    var imgsrc = "https://suver-page.vercel.app/images/pps/" + req.file.filename;
     var insertData = `UPDATE users SET pp = ? WHERE user = '${req.session.name}'`;
     db.query(insertData, [imgsrc], (err, results) => {
       if (err) throw err;
