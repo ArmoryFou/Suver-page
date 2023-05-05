@@ -1,8 +1,8 @@
 const mysql = require("mysql2");
 const connection = mysql.createPool({
-    host: "0z1kgen1t3lm.us-east-4.psdb.cloud",
-    user: "3ahjfi2p6oie",
-    password: "pscale_pw_m2sNaWGvWFCBtTUx5kCEF4DUFPr9slz9Feg1J2Sa9Fw",
+    host: "aws.connect.psdb.cloud",
+    user: "g0evxnrt1b8buh13nxjt",
+    password: "pscale_pw_1IHef7Fye9jRPc3slCDKC1EuwPkhMZ1NCag6gRSSrt9",
     database: "suver",
     ssl: {
         rejectUnauthorized: false
