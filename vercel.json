@@ -4,6 +4,17 @@
       {
         "src": "app.js",
         "use": "@vercel/node"
+      },
+      {
+        "src": "package.json",
+        "use": "@vercel/static-build",
+        "config": { "distDir": "public" },
+        "build": {
+          "env": { "NODE_ENV": "production" },
+          "command": "npm run build",
+          "startup": "npm start"
+        }
       }
     ]
   }
+  
