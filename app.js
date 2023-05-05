@@ -54,9 +54,15 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  // render the 404 page if the status code is 404
+  if (err.status === 404) {
+    res.status(404);
+    res.render('404');
+  } else {
+    // render the error page for other types of errors
+    res.status(err.status || 500);
+    res.render('error');
+  }
 });
 
 // Routes Config
