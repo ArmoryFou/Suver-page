@@ -91,10 +91,10 @@ router.post("/auth", async (req, res) => {
             name: "Login",
           });
         } else {
-          console.log(results[0]);
+          console.log(results);
           req.session.loggedin = true;
           req.session.name = results[0].user;
-          req.session.userid = results[0].id;
+          req.session.userid = results[0].ID;
           console.log(req.session.userid);
           req.session.pp = results[0].pp;
 
@@ -197,26 +197,26 @@ router.post("/loading", upload.single("image"), (req, res) => {
   }
 });
 
-router.get("/profiles/:id", async (req, res, next) => {
+router.get("/profiles/:userid", async (req, res, next) => {
   console.log(req.session.userid);
-  if (req.params.id == "profile") {
-    var sql2 = `SELECT * FROM users WHERE id = '${[req.session.userid]}'`;
+  if (req.params.userid == "profile") {
+    var sql2 = `SELECT * FROM users WHERE ID = '${[req.session.userid]}'`;
     db.query(sql2, function (err, data, fields) {
       if (err) throw err;
       console.log("Cuenta creada");
       res.render("profile", {
         username: data[0]["user"],
-        id: data[0]["id"],
+        id: data[0]["ID"],
         ppimage: data[0]["pp"],
         edit: true,
       });
     });
   } else {
-    var sql2 = `SELECT * FROM users WHERE id = '${[req.params.id]}'`;
+    var sql2 = `SELECT * FROM users WHERE ID = '${[req.params.id]}'`;
     db.query(sql2, function (err, data, fields) {
       res.render("profile", {
         username: data[0]["user"],
-        id: data[0]["id"],
+        id: data[0]["ID"],
         ppimage: data[0]["pp"],
         edit: false,
       });
@@ -443,7 +443,7 @@ router.get("/profiles/:id/edit", function (req, res, next) {
   var sql = `SELECT * FROM users WHERE user = '${[req.session.name]}'`;
   db.query(sql, function (err, data, fields) {
     if (err) throw err;
-    req.params.id = data[0]["id"];
+    req.params.id = data[0]["ID"];
     res.render("edit", {
       username: data[0]["user"],
     });
