@@ -2,18 +2,14 @@
     "version": 2,
     "builds": [
       {
-        "src": "app.js",
+        "src": "./app.js",
         "use": "@vercel/node"
-      },
+      }
+    ],
+    "routes": [
       {
-        "src": "package.json",
-        "use": "@vercel/static-build",
-        "config": { "distDir": "public" },
-        "build": {
-          "env": { "NODE_ENV": "production" },
-          "command": "npm run build",
-          "startup": "npm start"
-        }
+        "src": "/(.*)",
+        "dest": "/"
       }
     ]
   }
