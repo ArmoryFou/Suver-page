@@ -66,7 +66,6 @@ router.post("/register", async (req, res, next) => {
     }
   );
 });
-
 // Autenticacion
 
 router.post("/auth", async (req, res) => {
