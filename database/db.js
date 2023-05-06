@@ -1,9 +1,11 @@
 const mysql = require("mysql2");
+require("dotenv").config();
+console.log(process.env.USERNAMESQL);
 const connection = mysql.createPool({
-    host: "aws.connect.psdb.cloud",
-    user: "s3sxhxqerrv38np91pez",
-    password: "pscale_pw_p5i4aNqO8B0nfwlgcS0QWLD6MnxtWGbooUxpuwCvclC",
-    database: "suver",
+    host: process.env.HOSTSQL,
+    user: process.env.USERNAMESQL,
+    password: process.env.PASSWORDSQL,
+    database: process.env.DATABASESQL,
     ssl: {
         rejectUnauthorized: false
     }

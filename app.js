@@ -3,15 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-require("dotenv").config({path: "./env/.env"});
+require("dotenv").config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var demonlistRouter = require('./routes/demonlist');
 const { fs } = require('fs');
-
-
-
 
 var app = express();
 
@@ -20,20 +17,17 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 const bcryptjs = require("bcryptjs");
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}.`);
 });
 
 const session = require("express-session");
 app.use(session({
-  secret: "Suver1234Crisvigo",
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
 }));
-
-const connection = require("./database/db.js");
-const bcrypt = require('bcryptjs/dist/bcrypt');
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());

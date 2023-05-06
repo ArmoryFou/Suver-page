@@ -75,6 +75,8 @@ router.post("/auth", async (req, res) => {
       "SELECT * FROM users WHERE user = ?",
       [user],
       async (error, results, fields) => {
+        try {
+          console.log("Error: " + error);
         if (
           results.length == 0 ||
           !(await bcryptjs.compare(pass, results[0].pass))
@@ -114,7 +116,23 @@ router.post("/auth", async (req, res) => {
         }
         res.end();
       }
+     catch (e) {
+      console.error('Error:', e);
+      res.render("login", {
+        alert: true,
+        alertTitle: "Error",
+        alertMessage: "Ha ocurrido un error en la base de datos",
+        alertIcon: "error",
+        showConfirmButton: true,
+        timer: false,
+        ruta: "login",
+        login: false,
+        name: "Login",
+      });
+    }
+  }
     );
+    
   } else {
     res.send("Please enter user and Password!");
     res.end();
