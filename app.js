@@ -1,9 +1,10 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require("dotenv").config();
+const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -17,17 +18,25 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 const bcryptjs = require("bcryptjs");
 
+app.use(cookieParser());
+
+app.use(cookieSession({
+  name: 'session',
+  secret: process.env.SESSION_SECRET,
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  sameSite: 'strict',
+  secure: process.env.NODE_ENV === 'production', // only set 'secure' to true in production
+}));
+
 const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}.`);
 });
-
-const session = require("express-session");
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true
-}));
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   resave: true,
+//   saveUninitialized: true
+// }));
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());

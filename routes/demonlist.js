@@ -6,12 +6,12 @@ const jf = require("../json/demonlist.json");
 const ju = require("../json/records.json");
 
 // GET demonlist page
-router.get("/:demonlistNumber", function (req, res, next) {
+router.get("/:demonlistNumber", async function (req, res, next) {
   // Extract the demonlist number from the URL parameters
   const demonlistNumber = req.params.demonlistNumber;
 
   // Check if user is logged in
-  const loggedIn = req.session.loggedin;
+  const loggedIn = await sessionGet("loggedin") == "true";
 
   // Render the appropriate page based on the demonlist number
   res.render(`Demonlist/DemonlistPage`, {

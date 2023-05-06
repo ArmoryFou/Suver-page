@@ -13,14 +13,17 @@ const db2 = require("../database/mongo");
 const BlogComment=require('../models/blogComment');
 
 
-const session = require("express-session");
-router.use(
-  session({
-    secret: "Suver1234Crisvigo",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
+router.use(cookieParser());
+
+router.use(cookieSession({
+  name: 'session',
+  secret: process.env.SESSION_SECRET,
+  maxAge: 24 * 60 * 60 * 1000, // 1 day
+  sameSite: 'strict',
+  secure: process.env.NODE_ENV === 'production', // only set 'secure' to true in production
+}));
 
 router.post("/register", async (req, res, next) => {
   const user = req.body.user;
@@ -76,6 +79,7 @@ router.post("/auth", async (req, res) => {
       [user],
       async (error, results, fields) => {
         try {
+          console.log("Error: " + error);
         if (
           results.length == 0 ||
           !(await bcryptjs.compare(pass, results[0].pass))
