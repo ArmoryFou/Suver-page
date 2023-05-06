@@ -76,7 +76,6 @@ router.post("/auth", async (req, res) => {
       [user],
       async (error, results, fields) => {
         try {
-          console.log("Error: " + error);
         if (
           results.length == 0 ||
           !(await bcryptjs.compare(pass, results[0].pass))
@@ -121,7 +120,7 @@ router.post("/auth", async (req, res) => {
       res.render("login", {
         alert: true,
         alertTitle: "Error",
-        alertMessage: "Ha ocurrido un error en la base de datos",
+        alertMessage: error,
         alertIcon: "error",
         showConfirmButton: true,
         timer: false,
