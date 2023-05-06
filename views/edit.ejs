@@ -15,6 +15,7 @@
     <meta name="theme-color" content="#c12d7a"/>
 
     <script src="javascripts/llop.js"></script>
+    <script src="/javascripts/imagePreview.js"></script>
 
     <!-- CSS PC -->
 
@@ -72,17 +73,51 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
   </head>
 
   <body>
-
-    <div class="contenedor">
-        <form action="/loading" enctype="multipart/form-data" method="post">
-            <input class="select" type="file" name="image" accept='image/*' >
-            <input class="upload" type="submit" value="Upload">
-          </form>  
-      <button class="btn edit" onclick="window.history.back()" role="button">Back</button>
-  </div>
-
+    <div class="container">
+      <h1>Upload an Image</h1>
+      <img src="#" alt="Preview" id="image-preview" class="hidden">
+      <form action="/loading" enctype="multipart/form-data" method="post">
+        <div class="upload-btn-wrapper">
+          <label class="label-file" for="image-upload">Browse...</label>
+          <input type="file" name="image" id="image-upload" accept="image/*">
+        </div>
+        <input class="button upload" type="submit" value="Upload">
+      </form>
+      <a href="#" class="button back">Back</a>
+    </div>
+    <script>
+      window.addEventListener('load', () => {
+        start();
+      });
+  
+      function start() {
+        const input = document.getElementById("image-upload");
+        input.addEventListener("change", () => {
+          const preview = document.getElementById("image-preview");
+          if (input.files.length > 0) {
+            const file = input.files[0];
+            const reader = new FileReader();
+    
+            reader.addEventListener("load", function () {
+              preview.src = reader.result;
+              preview.classList.remove("hidden");
+            });
+    
+            reader.readAsDataURL(file);
+          } else {
+            preview.src = "#";
+            preview.classList.add("hidden");
+          }
+        });
+      }
+    </script>
   </body>
+  
+  
+  
+  
 </html>

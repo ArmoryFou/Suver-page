@@ -76,36 +76,54 @@
 
   <body>
 
-    <div class="contenedor">
-      <img src="<%=ppimage%>" alt="" class="pp" width="200px" height="200px">
-      <h3 style="color:white;"><%= username %></h3>
-
-      <% if(edit) {%>
-
-      <a class="btn loginb" href="/profiles/<%=id%>/edit" role="button">Edit</a>
-      <% } %>
-
-  </div>
-
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <div class="container">
+      <div class="profile-header">
+        <img src="<%=ppimage%>" alt="" class="profile-image">
+        <h2 class="profile-username"><%= username %></h2>
+        <% if(edit) {%>
+          <a class="btn edit-profile-btn" href="/profiles/<%=id%>/edit" role="button">Edit Profile</a>
+        <% } %>
+      </div>
+      <form method="POST" action="/posts/create" class="create-post-form">
+        <textarea name="postText" placeholder="What's on your mind?" rows="3" required></textarea>
+        <button type="submit" class="btn post-btn">Post</button>
+      </form>
+      <div class="posts-container">
+        <h2>My Posts</h2>
+        <% if (posts.length === 0) { %>
+          <p>No posts yet!</p>
+        <% } else { %>
+          
+          <% posts.reverse();
+           for (let i = 0; i < posts.length; i++) { %>
+            <div class="post">
+              <div class="post-header">
+                <img src="<%= posts[i].pp %>" alt="" class="post-profile-image">
+                <h3 class="post-username"><%= posts[i].username %></h3>
+              </div>
+              <p class="post-text"><%= posts[i].postText %></p>
+            </div>
+          <% } %>
+        <% } %>
+      </div>
+    </div>    
+  
     <% if(typeof alert != "undefined") { %>
-
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script>
         window.onload = function() {
           Swal.fire({
-          title: "<%= alertTitle %>",
-          text: "<%= alertMessage %>",
-          icon: "<%= alertIcon %>",
-          showConfirmButton: <%= showConfirmButton %>,
-          timer: <%= timer %>
-        }).then(()=>{
-          window.location= "/<%= ruta %>"
-        })
-}
+            title: "<%= alertTitle %>",
+            text: "<%= alertMessage %>",
+            icon: "<%= alertIcon %>",
+            showConfirmButton: <%= showConfirmButton %>,
+            timer: <%= timer %>
+          }).then(()=>{
+            window.location= "/<%= ruta %>"
+          })
+        }
       </script>
-
-      <% } %>
-
+    <% } %>
+  
   </body>
 </html>

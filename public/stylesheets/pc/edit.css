@@ -1,37 +1,99 @@
-.select, .upload{
-    background-color: #7d309c !important;
-    padding: 15px !important;
-    border: 0 !important;
-    box-sizing: border-box !important;
-    cursor: pointer !important;
-    font-weight: bold !important;
-    font-size: small !important;
-    color: #fff !important;
-    margin: 40px 25px;
-    height: 55px;
+body {
+    background-color: #f7f7f7;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  .upload-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  #image-upload {
+    border: none;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .upload-button {
+    background-color: #7d309c;
+    color: #fff;
+    border: none;
+    padding: 15px 25px;
     border-radius: 3px;
-}
-
-.upload{
-    width: 95px;
-}
-
-.select{
-    width: 80%;
-    max-width: 1200px;
-}
-
-.edit {
-    background-color: #7d309c !important;
-    padding: 15px !important;
-    border: 0 !important;
-    box-sizing: border-box !important;
-    cursor: pointer !important;
-    font-weight: bold !important;
-    font-size: small !important;
-    color: #fff !important;
-    height: auto !important;
-    width: 80px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .button {
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px;
+    padding: 15px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  .upload {
+    background-color: #7d309c;
+    color: #fff;
+  }
+  
+  .back {
+    background-color: #ddd;
+    color: #333;
+  }
+  
+  input[type="file"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
     position: absolute;
-    left: 50%;
-}
+  }
+  
+  .label-file {
+    background-color: #7d309c;
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .label-file:hover {
+    background-color: #610b7f;
+  }
+  
+  .label-file:active {
+    background-color: #5b0d73;
+  }

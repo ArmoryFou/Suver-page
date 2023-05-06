@@ -7,32 +7,34 @@ const bodyparser = require("body-parser");
 const multer = require("multer");
 const fs = require("fs");
 const Blog = require("../models/blogs");
+const Post = require("../models/post");
 const mongoose = require("mongoose");
 const { Validator } = require("node-input-validator");
 const db2 = require("../database/mongo");
-const BlogComment=require('../models/blogComment');
+const BlogComment = require("../models/blogComment");
 
-
-const cookieSession = require('cookie-session');
-const cookieParser = require('cookie-parser');
+const cookieSession = require("cookie-session");
+const cookieParser = require("cookie-parser");
 router.use(cookieParser());
 
-router.use(cookieSession({
-  name: 'session',
-  secret: process.env.SESSION_SECRET,
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
-  sameSite: 'strict',
-  secure: process.env.NODE_ENV === 'production', // only set 'secure' to true in production
-}));
+router.use(
+  cookieSession({
+    name: "session",
+    secret: process.env.SESSION_SECRET,
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production", // only set 'secure' to true in production
+  })
+);
 
 router.post("/register", async (req, res, next) => {
   const user = req.body.user;
   const pass = req.body.pass;
   let passwordush = await bcryptjs.hash(pass, 8);
-  var defaultpp = "https://suver-page.vercel.app/images/default-pp.jpg"
+  var defaultpp = "https://suver-page.vercel.app/images/default-pp.jpg";
   connection.query(
-    "INSERT INTO users SET ?",
-    { user: user, pass: passwordush, pp: defaultpp },
+    `INSERT INTO users ("user", "pass", "pp") VALUES ($1, $2, $3)`,
+    [user, passwordush, defaultpp],
     async (error, results) => {
       if (error) {
         console.log(error);
@@ -66,64 +68,58 @@ router.post("/register", async (req, res, next) => {
     }
   );
 });
+
 // Autenticacion
 
 router.post("/auth", async (req, res) => {
   const user = req.body.user;
   const pass = req.body.pass;
-  let passwordHash = await bcryptjs.hash(pass, 8);
   if (user && pass) {
-    connection.query(
-      "SELECT * FROM users WHERE user = ?",
-      [user],
-      async (error, results, fields) => {
-        try {
-          console.log("Error: " + error);
-        if (
-          results.length == 0 ||
-          !(await bcryptjs.compare(pass, results[0].pass))
-        ) {
-          res.render("login", {
-            alert: true,
-            alertTitle: "Error",
-            alertMessage: "USUARIO y/o PASSWORD incorrectas",
-            alertIcon: "error",
-            showConfirmButton: true,
-            timer: false,
-            ruta: "login",
-            login: false,
-            name: "Login",
-          });
-        } else {
-          console.log(results);
-          req.session.loggedin = true;
-          req.session.name = results[0].user;
-          req.session.userid = results[0].ID;
-          console.log(req.session.userid);
-          req.session.pp = results[0].pp;
+    const query = {
+      text: 'SELECT * FROM users WHERE "user" = $1',
+      values: [user],
+    };
+    try {
+      const { rows } = await db.query(query);
+      if (rows.length == 0 || !(await bcryptjs.compare(pass, rows[0].pass))) {
+        res.render("login", {
+          alert: true,
+          alertTitle: "Error",
+          alertMessage: "USUARIO y/o PASSWORD incorrectas",
+          alertIcon: "error",
+          showConfirmButton: true,
+          timer: false,
+          ruta: "login",
+          login: false,
+          name: "Login",
+        });
+      } else {
+        console.log(rows);
+        req.session.loggedin = true;
+        req.session.name = rows[0].user;
+        req.session.userid = rows[0].id;
+        req.session.pp = rows[0].pp;
 
-
-          res.render("login", {
-            alert: true,
-            alertTitle: "Conexión exitosa",
-            alertMessage: "¡LOGIN CORRECTO!",
-            alertIcon: "success",
-            showConfirmButton: false,
-            timer: 1500,
-            ruta: "",
-            login: true,
-            name: req.session.name,
-            id: "profile",
-          });
-        }
-        res.end();
+        res.render("login", {
+          alert: true,
+          alertTitle: "Conexión exitosa",
+          alertMessage: "¡LOGIN CORRECTO!",
+          alertIcon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          ruta: "",
+          login: true,
+          name: req.session.name,
+          id: "profile",
+        });
       }
-     catch (e) {
-      console.error('Error:', e);
+      res.end();
+    } catch (e) {
+      console.error("Error:", e);
       res.render("login", {
         alert: true,
         alertTitle: "Error",
-        alertMessage: error,
+        alertMessage: "There was a problem with the database",
         alertIcon: "error",
         showConfirmButton: true,
         timer: false,
@@ -132,9 +128,6 @@ router.post("/auth", async (req, res) => {
         name: "Login",
       });
     }
-  }
-    );
-    
   } else {
     res.send("Please enter user and Password!");
     res.end();
@@ -149,27 +142,11 @@ router.use(
   })
 );
 
-//! Use of Multer
-var storage = multer.diskStorage({
-  destination: (req, file, callBack) => {
-    callBack(null, "./public/images/pps/"); // './public/images/' directory name where save the file
-    
-  },
-  filename: (req, file, callBack) => {
-    const mimeExtension = {
-      "image/jpeg": ".jpeg",
-      "image/jpg": ".jpg",
-      "image/png": ".png",
-      "image/gif": ".gif",
-    };
-    callBack(
-      null,
-      file.fieldname + "-" + Date.now() + mimeExtension[file.mimetype]
-    );
-  },
-});
+const { ImgurClient } = require("imgur");
+const client = new ImgurClient({ clientId: process.env.IMGUR_ID });
 
-var upload = multer({
+const storage = multer.memoryStorage();
+const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
     console.log(file.mimetype);
@@ -189,58 +166,92 @@ var upload = multer({
 
 //@type   POST
 //route for post data
-router.post("/loading", upload.single("image"), (req, res) => {
+router.post("/loading", upload.single("image"), async (req, res) => {
   if (!req.file) {
     console.log("No file upload");
   } else {
-    console.log(req.file.filename);
-    var imgsrc = "https://suver-page.vercel.app/images/pps/" + req.file.filename;
-    var insertData = `UPDATE users SET pp = ? WHERE user = '${req.session.name}'`;
-    db.query(insertData, [imgsrc], (err, results) => {
-      if (err) throw err;
-      console.log("file uploaded");
-    });
+    try {
+      const img = req.file.buffer.toString("base64");
+      const response = await client.upload({
+        image: img,
+        type: "base64",
+      });
+      const imgsrc = response.data.link;
+      const query = {
+        text: "UPDATE users SET pp = $1 WHERE ID = $2",
+        values: [imgsrc, req.session.userid],
+      };
+      await db.query(query);
 
-    res.render("profile", {
-      username: req.session.name,
-      id: req.session.userid,
-      ppimage: req.session.pp,
-      edit: true,
-      alert: true,
-      alertTitle: "Foto cambiada",
-      alertMessage: "¡La foto de perfil ha sido actualizada!",
-      alertIcon: "success",
-      showConfirmButton: false,
-      timer: 1500,
-      ruta: "profiles/profile",
-    });
+      res.render("profile", {
+        username: req.session.name,
+        id: req.session.userid,
+        ppimage: req.session.pp,
+        edit: true,
+        alert: true,
+        alertTitle: "Foto cambiada",
+        alertMessage: "¡La foto de perfil ha sido actualizada!",
+        alertIcon: "success",
+        showConfirmButton: false,
+        timer: 1500,
+        ruta: "profiles/profile",
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
   }
 });
 
 router.get("/profiles/:userid", async (req, res, next) => {
   console.log(req.session.userid);
   if (req.params.userid == "profile") {
-    var sql2 = `SELECT * FROM users WHERE ID = '${[req.session.userid]}'`;
-    db.query(sql2, function (err, data, fields) {
-      if (err) throw err;
-      console.log("Cuenta creada");
-      res.render("profile", {
-        username: data[0]["user"],
-        id: data[0]["ID"],
-        ppimage: data[0]["pp"],
-        edit: true,
-      });
-    });
+    const query = {
+      text: "SELECT * FROM users WHERE ID = $1",
+      values: [req.session.userid],
+    };
+    try {
+      const { rows } = await db.query(query);
+      console.log(rows[0]);
+      if (rows.length > 0) {
+        const posts = await Post.find({ user_id: req.session.userid });
+        res.render("profile", {
+          username: rows[0]["user"],
+          id: rows[0]["id"],
+          ppimage: rows[0]["pp"],
+          edit: true,
+          posts: posts,
+        });
+      } else {
+        res.status(404).send("User not found");
+      }
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
   } else {
-    var sql2 = `SELECT * FROM users WHERE ID = '${[req.params.id]}'`;
-    db.query(sql2, function (err, data, fields) {
-      res.render("profile", {
-        username: data[0]["user"],
-        id: data[0]["ID"],
-        ppimage: data[0]["pp"],
-        edit: false,
-      });
-    });
+    const query = {
+      text: "SELECT * FROM users WHERE ID = $1",
+      values: [req.params.userid],
+    };
+    try {
+      const { rows } = await db.query(query);
+      if (rows.length > 0) {
+        const posts = await Post.find({ user_id: req.params.userid });
+        res.render("profile", {
+          username: rows[0]["user"],
+          id: rows[0]["id"],
+          ppimage: rows[0]["pp"],
+          edit: false,
+          posts: posts,
+        });
+      } else {
+        res.status(404).send("User not found");
+      }
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
   }
 });
 
@@ -248,7 +259,7 @@ router.get("/profiles/:userid", async (req, res, next) => {
 router.get("/", function (req, res, next) {
   if (!req.body) {
     // If there's no request body, send an error response
-    return res.status(400).send('Request body is missing');
+    return res.status(400).send("Request body is missing");
   }
   if (req.session.loggedin) {
     res.render("index", {
@@ -366,31 +377,34 @@ router.get("/login", function (req, res, next) {
 router.get("/articles/:blog_id", async function (req, res, next) {
   let blog_id = req.params.blog_id;
 
-  let blog = await Blog.findOne({ _id:  blog_id, function(err, result) {
-    if (err) { 
-      return res.render("index", {
-        alert: true,
-        alertTitle: "Error",
-        alertMessage: "El blog no ha sido encontrado",
-        alertIcon: "error",
-        showConfirmButton: true,
-        timer: false,
-        login: false,
-        name: req.session.name,
-        ruta: "",
-        title: "error",
-        id: req.session.userid,
-      });
-     }}
-  })
-    
+  let blog = await Blog.findOne({
+    _id: blog_id,
+    function(err, result) {
+      if (err) {
+        return res.render("index", {
+          alert: true,
+          alertTitle: "Error",
+          alertMessage: "El blog no ha sido encontrado",
+          alertIcon: "error",
+          showConfirmButton: true,
+          timer: false,
+          login: false,
+          name: req.session.name,
+          ruta: "",
+          title: "error",
+          id: req.session.userid,
+        });
+      }
+    },
+  });
+
   let allcomments = await BlogComment.find({});
 
-  let comments = []
+  let comments = [];
 
-  for(let comment of allcomments){
-    if(blog.blog_comments.includes(comment._id)){
-    comments.push(comment)
+  for (let comment of allcomments) {
+    if (blog.blog_comments.includes(comment._id)) {
+      comments.push(comment);
     }
   }
 
@@ -405,7 +419,7 @@ router.get("/articles/:blog_id", async function (req, res, next) {
       short_description: blog.short_description,
       description: blog.description,
       image: blog.image,
-      comments: comments
+      comments: comments,
     });
   } else {
     res.render("articles.ejs", {
@@ -416,11 +430,10 @@ router.get("/articles/:blog_id", async function (req, res, next) {
       short_description: blog.short_description,
       description: blog.description,
       image: blog.image,
-      comments: comments
+      comments: comments,
     });
-  
   }
-  });
+});
 
 router.get("/articles/page2", function (req, res, next) {
   if (req.session.loggedin) {
@@ -459,110 +472,157 @@ router.get("/articles/page3", function (req, res, next) {
 });
 
 /* GET Edit page. */
-router.get("/profiles/:id/edit", function (req, res, next) {
-  var sql = `SELECT * FROM users WHERE user = '${[req.session.name]}'`;
-  db.query(sql, function (err, data, fields) {
-    if (err) throw err;
-    req.params.id = data[0]["ID"];
+router.get("/profiles/:id/edit", async (req, res, next) => {
+  try {
+    const query = {
+      text: 'SELECT * FROM users WHERE "user" = $1',
+      values: [req.session.name],
+    };
+    const { rows } = await db.query(query);
+    req.params.id = rows[0]["ID"];
     res.render("edit", {
-      username: data[0]["user"],
+      username: rows[0]["user"],
     });
-  });
-});
-
-// Logout
-router.get("/logout", function (req, res, next) {
-  req.session.destroy((err) => {
-    res.redirect(req.get("referer"));
-  });
-});
-
-router.post("/articles/:blog_id/comments/create", async function (req, res, next) {
-  let blog_id = req.params.blog_id;
-
-  let blog = await Blog.findOne({ _id:  blog_id});
-  let comments = await BlogComment.find({});
-
-  if(!mongoose.Types.ObjectId.isValid(blog_id)){
-		return res.status(400).send({
-	  		message:'Invalid blog id',
-	  		data:{}
-	  	});
-	}
-  if(!req.session.loggedin){
-    return res.render("articles", {
-      alert: true,
-      alertTitle: "Error",
-      alertMessage: "Tienes que loggearte para comentar",
-      alertIcon: "error",
-      showConfirmButton: true,
-      timer: false,
-      login: false,
-      name: "Login",
-      title: blog.title,
-      id: blog_id,
-      short_description: blog.short_description,
-      description: blog.description,
-      image: blog.image,
-      comments: comments
-    });
+  } catch (err) {
+    console.error(err);
+    next(err);
   }
+});
 
-  Blog.findOne({ _id: blog_id })
-    .then(async (blog) => {
-      if (!blog) {
-        return res.render("index", {
+//logout
+router.get("/logout", function (req, res) {
+  res.clearCookie("session");
+  res.redirect("/");
+});
+
+router.post(
+  "/articles/:blog_id/comments/create",
+  async function (req, res, next) {
+    let blog_id = req.params.blog_id;
+
+    let blog = await Blog.findOne({ _id: blog_id });
+    let comments = await BlogComment.find({});
+
+    if (!mongoose.Types.ObjectId.isValid(blog_id)) {
+      return res.status(400).send({
+        message: "Invalid blog id",
+        data: {},
+      });
+    }
+    if (!req.session.loggedin) {
+      return res.render("articles", {
+        alert: true,
+        alertTitle: "Error",
+        alertMessage: "Tienes que loggearte para comentar",
+        alertIcon: "error",
+        showConfirmButton: true,
+        timer: false,
+        login: false,
+        name: "Login",
+        title: blog.title,
+        id: blog_id,
+        short_description: blog.short_description,
+        description: blog.description,
+        image: blog.image,
+        comments: comments,
+      });
+    }
+
+    Blog.findOne({ _id: blog_id })
+      .then(async (blog) => {
+        if (!blog) {
+          return res.render("index", {
+            alert: true,
+            alertTitle: "Error",
+            alertMessage: "El blog no ha sido encontrado",
+            alertIcon: "error",
+            showConfirmButton: true,
+            timer: false,
+            login: false,
+            name: req.session.name,
+            title: "suver",
+            id: req.session.userid,
+          });
+        } else {
+          let newCommentDocument = new BlogComment({
+            comment: req.body.comment,
+            blog_id: blog_id,
+            user_id: req.session.userid,
+            username: req.session.name,
+            pp: req.session.pp,
+          });
+
+          var commentData = await newCommentDocument.save();
+
+          await Blog.updateOne(
+            { _id: blog_id },
+            { $push: { blog_comments: commentData._id } }
+          );
+        }
+
+        return res.render("articles", {
           alert: true,
-          alertTitle: "Error",
-          alertMessage: "El blog no ha sido encontrado",
-          alertIcon: "error",
+          alertTitle: "Correcto",
+          alertMessage: "Comentario enviado correctamente",
+          alertIcon: "success",
           showConfirmButton: true,
           timer: false,
           login: false,
           name: req.session.name,
-          title: "suver",
-          id: req.session.userid,
+          title: blog.title,
+          id: blog_id,
+          ruta: "",
+          short_description: blog.short_description,
+          description: blog.description,
+          image: blog.image,
+          comments: comments,
         });
-      } else {
-        
-        let newCommentDocument = new BlogComment({
-          comment: req.body.comment,
-          blog_id: blog_id,
-          user_id: req.session.userid,
-          username: req.session.name,
-          pp: req.session.pp
-        });
-
-        var commentData = await newCommentDocument.save();
-
-        await Blog.updateOne(
-          { _id: blog_id },
-          { $push: { blog_comments: commentData._id } }
-        );
-      }
-
-      return res.render("articles", {
-        alert: true,
-        alertTitle: "Correcto",
-        alertMessage: "Comentario enviado correctamente",
-        alertIcon: "success",
-        showConfirmButton: true,
-        timer: false,
-        login: false,
-        name: req.session.name,
-        title: blog.title,
-        id: blog_id,
-        ruta: "",
-        short_description: blog.short_description,
-        description: blog.description,
-        image: blog.image,
-        comments: comments
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(400);
       });
-    })
-    .catch(err => {
-      console.log(err)
-      return res.status(400);
+  }
+);
+
+router.post("/posts/create", async (req, res) => {
+  const { postText } = req.body;
+
+  const query = {
+    text: "SELECT * FROM users WHERE ID = $1",
+    values: [req.session.userid],
+  };
+  try {
+    const { rows } = await db.query(query);
+    console.log(rows[0]);
+    const post = new Post({
+      postText: postText,
+      user_id: req.session.userid,
+      username: rows[0].user,
+      pp: rows[0].pp,
     });
+
+    await post.save();
+
+    return res.render("profile", {
+      alert: true,
+      alertTitle: "Correcto",
+      alertMessage: "Comentario enviado correctamente",
+      alertIcon: "success",
+      showConfirmButton: true,
+      timer: false,
+      login: false,
+      ruta: "profiles/profile",
+      username: rows[0]["user"],
+      id: rows[0]["id"],
+      ppimage: rows[0]["pp"],
+      edit: true,
+      posts: []
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
 });
 
 module.exports = router;
