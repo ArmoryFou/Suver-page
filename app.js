@@ -18,15 +18,16 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 const bcryptjs = require("bcryptjs");
 
-app.use(cookieParser());
 
-app.use(cookieSession({
-  name: 'session',
-  secret: process.env.SESSION_SECRET,
-  maxAge: 24 * 60 * 60 * 1000, // 1 day
-  sameSite: 'strict',
-  secure: process.env.NODE_ENV === 'production', // only set 'secure' to true in production
-}));
+// app.use(cookieParser());
+
+// app.use(cookieSession({
+//   name: 'session',
+//   secret: process.env.SESSION_SECRET,
+//   maxAge: 24 * 60 * 60 * 1000, // 1 day
+//   sameSite: 'strict',
+//   secure: process.env.NODE_ENV === 'production', // only set 'secure' to true in production
+// }));
 
 const port = process.env.PORT;
 app.listen(port, () => {

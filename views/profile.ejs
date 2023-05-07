@@ -84,12 +84,14 @@
           <a class="btn edit-profile-btn" href="/profiles/<%=id%>/edit" role="button">Edit Profile</a>
         <% } %>
       </div>
+      <% if(edit) {%>
       <form method="POST" action="/posts/create" class="create-post-form">
-        <textarea name="postText" placeholder="What's on your mind?" rows="3" required></textarea>
+        <textarea name="postText" placeholder="Escribe algo..." rows="3" required></textarea>
         <button type="submit" class="btn post-btn">Post</button>
       </form>
+      <% } %>
       <div class="posts-container">
-        <h2>My Posts</h2>
+        <h2>Mis publicaciones</h2>
         <% if (posts.length === 0) { %>
           <p>No posts yet!</p>
         <% } else { %>
@@ -107,6 +109,7 @@
         <% } %>
       </div>
     </div>    
+    <a href="/" class="button back">Back</a>
   
     <% if(typeof alert != "undefined") { %>
       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
