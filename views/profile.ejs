@@ -95,20 +95,22 @@
         <% if (posts.length === 0) { %>
           <p>No posts yet!</p>
         <% } else { %>
-          
           <% posts.reverse();
            for (let i = 0; i < posts.length; i++) { %>
             <div class="post">
               <div class="post-header">
                 <img src="<%= posts[i].pp %>" alt="" class="post-profile-image">
-                <h3 class="post-username"><%= posts[i].username %></h3>
+                <div>
+                  <h3 class="post-username"><%= posts[i].username %></h3>
+                  <p class="post-created-at"><%= new Date(posts[i].createdAt).toLocaleString() %></p>
+                </div>
               </div>
               <p class="post-text"><%= posts[i].postText %></p>
-            </div>
+            </div>            
           <% } %>
         <% } %>
       </div>
-    </div>    
+      
     <a href="/" class="button back">Back</a>
   
     <% if(typeof alert != "undefined") { %>

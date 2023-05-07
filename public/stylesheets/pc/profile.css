@@ -1,137 +1,240 @@
 /* Profile container */
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 30px 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  
-  /* Profile header */
-  .profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
+  100% {
+    opacity: 1;
   }
-  
-  .profile-image {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Profile header */
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  animation: slideInLeft 0.5s ease;
+}
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
   }
-  
-  .profile-username {
-    font-size: 24px;
-    font-weight: bold;
-    margin-left: 30px;
-    margin-right: 70%;
+  100% {
+    transform: translateX(0);
   }
-  
-  .edit-profile-btn {
-    background-color: #7d309c;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.2s ease;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image:hover {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  
-  .edit-profile-btn:hover {
-    background-color: #a252c1;
+  50% {
+    transform: scale(1.2);
   }
-  
-  /* Create post form */
-  .create-post-form {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 30px;
+  100% {
+    transform: scale(1);
   }
-  
-  .create-post-form textarea {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    background-color: #f3f3f3;
-    resize: none;
-    font-size: 16px;
-    font-family: "Segoe UI", sans-serif;
-    color: #333;
-    margin-right: 20px;
+}
+
+.profile-username {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-right: 70%;
+  position: relative;
+  left: 10px;
+  animation: slideInRight 0.5s ease;
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
   }
-  
-  .post-btn {
-    background-color: #7d309c;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.edit-profile-btn {
+  background-color: #7d309c;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  animation: fadeIn 0.5s ease;
+}
+
+.edit-profile-btn:hover {
+  background-color: #a252c1;
+  animation: pulse 0.5s infinite;
+}
+
+/* Create post form */
+.create-post-form {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  animation: slideInUp 0.5s ease;
+}
+
+@keyframes slideInUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.create-post-form textarea {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #f3f3f3;
+  resize: none;
+  font-size: 16px;
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+  margin-right: 20px;
+  animation: fadeIn 0.5s ease;
+}
+
+.post-btn {
+  background-color: #7d309c;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.post-btn {
+  background-color: #7d309c;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
   }
   
   .post-btn:hover {
-    background-color: #a252c1;
+  background-color: #a252c1;
+  transform: scale(1.05);
   }
   
   /* Posts container */
   .posts-container {
-    border-top: 1px solid #ccc;
-    padding-top: 30px;
+  border-top: 1px solid #ccc;
+  padding-top: 30px;
+  animation: fade-in 1s ease-out;
   }
   
   /* Post */
   .post {
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  animation: slide-in 0.5s ease-out;
   }
   
   .post-header {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
   }
   
   .post-profile-image {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  margin-right: 10px;
   }
   
   .post-username {
-    font-size: 16px;
-    font-weight: bold;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  left: 10px;
   }
   
   .post-text {
-    font-size: 16px;
-    color: #333;
-  }
-
-  .back {
-    background-color: #ddd;
-    color: #333;
-  }
-
-  .button {
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-weight: bold;
-    margin: 10px;
-    padding: 15px 25px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+  font-size: 16px;
+  color: #333;
+  margin-top: 10px;
   }
   
+  .back {
+  background-color: #ddd;
+  color: #333;
+  }
+  
+  .button {
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  }
+  
+  .post-created-at {
+  font-size: 12px;
+  color: #999;
+  margin-top: 5px;
+  }
+  
+  @keyframes fade-in {
+  from {
+  opacity: 0;
+  }
+  to {
+  opacity: 1;
+  }
+  }
+  
+  @keyframes slide-in {
+  from {
+  transform: translateX(-50px);
+  opacity: 0;
+  }
+  to {
+  transform: translateX(0);
+  opacity: 1;
+  }
+  }

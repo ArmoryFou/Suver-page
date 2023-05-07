@@ -11,7 +11,7 @@ router.get("/:demonlistNumber", async function (req, res, next) {
   const demonlistNumber = req.params.demonlistNumber;
 
   // Check if user is logged in
-  const loggedIn = await sessionGet("loggedin") == "true";
+  const loggedIn = req.session.loggedIn;
 
   // Render the appropriate page based on the demonlist number
   res.render(`Demonlist/DemonlistPage`, {
