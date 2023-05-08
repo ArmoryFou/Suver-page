@@ -5,6 +5,8 @@ const connection = require("../database/db.js");
 const jf = require("../json/demonlist.json");
 const ju = require("../json/records.json");
 const session = require("express-session");
+const sessionRouter = require('./index.js');
+app.use(sessionRouter);
 
 // GET demonlist page
 router.get("/:demonlistNumber", async function (req, res, next) {
