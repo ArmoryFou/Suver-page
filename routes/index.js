@@ -27,8 +27,6 @@ const session = require("express-session");
 
 const MongoStore = require("connect-mongo");
 
-const moments = require("../json/moments.json");
-
 const user = process.env.USERMONGO;
 const password = process.env.PASSWORDMONGO;
 const datab = process.env.DBMONGO;
