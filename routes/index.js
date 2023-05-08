@@ -27,6 +27,8 @@ const session = require("express-session");
 
 const MongoStore = require("connect-mongo");
 
+const moments = require("../json/moments.json");
+
 const user = process.env.USERMONGO;
 const password = process.env.PASSWORDMONGO;
 const datab = process.env.DBMONGO;
@@ -296,24 +298,92 @@ router.get("/", function (req, res, next) {
   }
 });
 
-/* GET bestmoments page. */
-router.get("/bestmoments", function (req, res, next) {
-  if (req.session.loggedin) {
-    res.render("crisviga", {
-      login: true,
-      name: req.session.name,
-      title: "Best Moments",
-      id: req.session.userid,
-    });
-  } else {
-    res.render("crisviga", {
-      login: false,
-      name: "Login",
-      title: "Best Moments",
-      id: req.session.userid,
-    });
-  }
+const { Client, Intents} = require('discord.js');
+
+const bot = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_BANS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.DIRECT_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+  ],
 });
+bot.on('ready', () => {
+  console.log(`Logged in as ${bot.user.tag}!`);
+});
+
+/* GET bestmoments page. */
+router.get("/bestmoments",async function (req, res, next) {
+  const channel = await bot.channels.fetch('886466187280662539');
+  channel.messages.fetch({ limit: 30 }) 
+    .then(messages => {
+      
+      var messageObject = {}; 
+      messages.forEach(message => {
+        const matchImage = message.content.match(/\bhttps?:\/\/\S+\.(png|jpg|jpeg)\b/gi);
+        const matchVideo = message.content.match(/\bhttps?:\/\/\S+\.(gif|mp4)\b/gi);
+        messageObject[message.id] = {
+          text: message.content.replace(/\bhttps?:\/\/\S+\b/gi, ''),
+          date: message.createdAt,
+          media: null,
+          type: null
+        }
+        
+        if(matchImage){
+          messageObject[message.id].media = matchImage[0];
+          messageObject[message.id].type = "image";
+        }
+        else if(matchVideo){
+          messageObject[message.id].media = matchVideo[0];
+          messageObject[message.id].type = "video";
+        } else {
+          if (message.attachments.size > 0) {
+            const attachment = message.attachments.first();
+            if (attachment.url.endsWith(".jpg") || attachment.url.endsWith(".jpeg") || attachment.url.endsWith(".png")) {
+              messageObject[message.id].media = attachment.url;
+              messageObject[message.id].type = "image";
+            }
+            else if (attachment.url.endsWith(".mp4") || attachment.url.endsWith(".mov")) {
+              messageObject[message.id].media = attachment.url;
+              messageObject[message.id].type = "video";
+            }
+          }
+        }
+        if (messageObject[message.id].text.endsWith('?')) {
+          messageObject[message.id].text = messageObject[message.id].text.slice(0, -1);
+        }
+        messageObject = Object.fromEntries(
+          Object.entries(messageObject).filter(([key, value]) => value.media)
+        );
+      });
+      if (req.session.loggedin) {
+        res.render("bestmoments", {
+            login: true,
+            name: req.session.name,
+            title: "Best Moments",
+            moments: messageObject,
+            id: req.session.userid,
+        });
+    } else {
+        res.render("bestmoments", {
+            login: false,
+            name: "Login",
+            title: "Best Moments",
+            moments: messageObject,
+            id: req.session.userid,
+        });
+    }
+    })
+    .catch(console.error);
+});
+
+bot.login(process.env.DISCORD_TOKEN);
+
+
 
 /* GET ooc page. */
 router.get("/ooc", function (req, res, next) {
@@ -449,42 +519,6 @@ router.get("/articles/:blog_id", async function (req, res, next) {
       description: blog.description,
       image: blog.image,
       comments: comments,
-    });
-  }
-});
-
-router.get("/articles/page2", function (req, res, next) {
-  if (req.session.loggedin) {
-    res.render("articles/page2.ejs", {
-      login: true,
-      name: req.session.name,
-      title: "Login",
-      id: req.session.userid,
-    });
-  } else {
-    res.render("articles/page2.ejs", {
-      login: false,
-      name: "Login",
-      title: "Login",
-      id: req.session.userid,
-    });
-  }
-});
-
-router.get("/articles/page3", function (req, res, next) {
-  if (req.session.loggedin) {
-    res.render("articles/page3.ejs", {
-      login: true,
-      name: req.session.name,
-      title: "Login",
-      id: req.session.userid,
-    });
-  } else {
-    res.render("articles/page3.ejs", {
-      login: false,
-      name: "Login",
-      title: "Login",
-      id: req.session.userid,
     });
   }
 });
