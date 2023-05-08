@@ -383,8 +383,6 @@ router.get("/bestmoments",async function (req, res, next) {
 
 bot.login(process.env.DISCORD_TOKEN);
 
-
-
 /* GET ooc page. */
 router.get("/ooc", function (req, res, next) {
   if (req.session.loggedin) {
