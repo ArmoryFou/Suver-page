@@ -221,7 +221,6 @@ router.post("/loading", upload.single("image"), async (req, res) => {
 });
 
 router.get("/profiles/:userid", async (req, res, next) => {
-  console.log(req.session.userid);
   if (req.params.userid == "profile") {
     const query = {
       text: "SELECT * FROM users WHERE ID = $1",
@@ -229,7 +228,6 @@ router.get("/profiles/:userid", async (req, res, next) => {
     };
     try {
       const { rows } = await db.query(query);
-      console.log(rows[0]);
       if (rows.length > 0) {
         const posts = await Post.find({ user_id: req.session.userid });
         console.log(posts);
@@ -316,7 +314,7 @@ bot.on("ready", () => {
 
 router.get("/bestmoments", async function (req, res, next) {
   const channel = await bot.channels.fetch("886466187280662539");
-  const messages = await channel.messages.fetch({ limit: 30 });
+  const messages = await channel.messages.fetch({ limit: 90 });
 
   var messageObject = {};
   await Promise.all(
