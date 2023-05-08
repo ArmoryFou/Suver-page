@@ -34,7 +34,7 @@ const mongoUrl = `mongodb+srv://${user}:${password}@cluster0.zioea.mongodb.net/$
 
 router.use(
   session({
-    secret: "mysecret",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
