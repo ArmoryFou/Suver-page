@@ -44,10 +44,6 @@ video {
   margin-bottom: 1rem;
 }
 
-/* limit the height of the card to avoid large gaps between cards with different aspect ratios */
-.card.h-100 {
-  max-height: 450px;
-}
 .btn-secondary {
   margin-top: 10px;
 }
