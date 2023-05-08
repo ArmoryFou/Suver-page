@@ -296,7 +296,7 @@ router.get("/", function (req, res, next) {
   }
 });
 
-const { Client, Intents} = require('discord.js');
+const { Client, Intents } = require("discord.js");
 
 const bot = new Client({
   intents: [
@@ -310,58 +310,64 @@ const bot = new Client({
     Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
   ],
 });
-bot.on('ready', () => {
+bot.on("ready", () => {
   console.log(`Logged in as ${bot.user.tag}!`);
 });
 
 router.get("/bestmoments", async function (req, res, next) {
-  const channel = await bot.channels.fetch('886466187280662539');
+  const channel = await bot.channels.fetch("886466187280662539");
   const messages = await channel.messages.fetch({ limit: 30 });
-  
-  var messageObject = {};
-  await Promise.all(messages.map(async (message) => {
-    const matchImage = message.content.match(/\bhttps?:\/\/\S+\.(png|jpg|jpeg)\b/gi);
-    const matchVideo = message.content.match(/\bhttps?:\/\/\S+\.(gif|mp4)\b/gi);
-    messageObject[message.id] = {
-      text: message.content.replace(/\bhttps?:\/\/\S+\b/gi, ''),
-      date: message.createdAt,
-      media: null,
-      type: null
-    }
 
-    if (matchImage) {
-      messageObject[message.id].media = matchImage[0];
-      messageObject[message.id].type = "image";
-    } else if (matchVideo) {
-      messageObject[message.id].media = matchVideo[0];
-      messageObject[message.id].type = "video";
-    } else {
-      if (message.attachments.size > 0) {
-        const attachment = message.attachments.first();
-        if (
-          attachment.url.endsWith(".jpg") ||
-          attachment.url.endsWith(".jpeg") ||
-          attachment.url.endsWith(".png")
-        ) {
-          messageObject[message.id].media = attachment.url;
-          messageObject[message.id].type = "image";
-        } else if (
-          attachment.url.endsWith(".mp4") ||
-          attachment.url.endsWith(".mov")
-        ) {
-          messageObject[message.id].media = attachment.url;
-          messageObject[message.id].type = "video";
+  var messageObject = {};
+  await Promise.all(
+    messages.map(async (message) => {
+      const matchImage = message.content.match(
+        /\bhttps?:\/\/\S+\.(png|jpg|jpeg)\b/gi
+      );
+      const matchVideo = message.content.match(
+        /\bhttps?:\/\/\S+\.(gif|mp4)\b/gi
+      );
+      messageObject[message.id] = {
+        text: message.content.replace(/\bhttps?:\/\/\S+\b/gi, ""),
+        date: message.createdAt,
+        media: null,
+        type: null,
+      };
+
+      if (matchImage) {
+        messageObject[message.id].media = matchImage[0];
+        messageObject[message.id].type = "image";
+      } else if (matchVideo) {
+        messageObject[message.id].media = matchVideo[0];
+        messageObject[message.id].type = "video";
+      } else {
+        if (message.attachments.size > 0) {
+          const attachment = message.attachments.first();
+          if (
+            attachment.url.endsWith(".jpg") ||
+            attachment.url.endsWith(".jpeg") ||
+            attachment.url.endsWith(".png")
+          ) {
+            messageObject[message.id].media = attachment.url;
+            messageObject[message.id].type = "image";
+          } else if (
+            attachment.url.endsWith(".mp4") ||
+            attachment.url.endsWith(".mov")
+          ) {
+            messageObject[message.id].media = attachment.url;
+            messageObject[message.id].type = "video";
+          }
         }
       }
-    }
 
-    if (messageObject[message.id].text.endsWith("?")) {
-      messageObject[message.id].text = messageObject[message.id].text.slice(
-        0,
-        -1
-      );
-    }
-  }));
+      if (messageObject[message.id].text.endsWith("?")) {
+        messageObject[message.id].text = messageObject[message.id].text.slice(
+          0,
+          -1
+        );
+      }
+    })
+  );
   messageObject = Object.fromEntries(
     Object.entries(messageObject).filter(([key, value]) => value.media)
   );
@@ -526,17 +532,19 @@ router.get("/articles/:blog_id", async function (req, res, next) {
 });
 
 /* GET Edit page. */
-router.get("/profiles/:id/edit", async (req, res, next) => {
+router.get("/profiles/:userid/edit", async (req, res, next) => {
   try {
-    const query = {
-      text: 'SELECT * FROM users WHERE "user" = $1',
-      values: [req.session.name],
-    };
-    const { rows } = await db.query(query);
-    req.params.id = rows[0]["ID"];
-    res.render("edit", {
-      username: rows[0]["user"],
-    });
+    if (req.session.loggedin && req.params.userid == req.session.userid) {
+      const query = {
+        text: 'SELECT * FROM users WHERE "user" = $1',
+        values: [req.session.name],
+      };
+      const { rows } = await db.query(query);
+      req.params.id = rows[0]["ID"];
+      res.render("edit", {
+        username: rows[0]["user"],
+      });
+    }
   } catch (err) {
     console.error(err);
     next(err);
