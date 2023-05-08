@@ -9,6 +9,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.0.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "connect-mongo": "^5.0.0",

@@ -39,6 +39,10 @@ app.listen(port, () => {
 //   saveUninitialized: true
 // }));
 
+import { inject } from '@vercel/analytics';
+ 
+inject();
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
