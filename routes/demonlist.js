@@ -14,7 +14,7 @@ router.get("/:demonlistNumber", async function (req, res, next) {
   const loggedIn = req.session.loggedIn;
 
   // Render the appropriate page based on the demonlist number
-  res.render(`Demonlist/DemonlistPage`, {
+  res.render(`DemonlistPage`, {
     login: loggedIn,
     name: loggedIn ? req.session.name : "Login",
     Demonlist: jf.Demonlist,
