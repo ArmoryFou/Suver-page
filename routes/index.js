@@ -319,7 +319,7 @@ bot.on('ready', () => {
 /* GET bestmoments page. */
 router.get("/bestmoments",async function (req, res, next) {
   const channel = await bot.channels.fetch('886466187280662539');
-  channel.messages.fetch({ limit: 30 }) 
+  await channel.messages.fetch({ limit: 30 }) 
     .then(messages => {
       
       var messageObject = {}; 
