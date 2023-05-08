@@ -97,4 +97,15 @@ body.modal-open {
     display: none;
     z-index: 10001;
   }
+
+  .title {
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #333;
+    text-shadow: 2px 2px #ddd;
+  }
+  
   
