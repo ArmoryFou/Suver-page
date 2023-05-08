@@ -39,7 +39,7 @@ app.listen(port, () => {
 //   saveUninitialized: true
 // }));
 
-import { inject } from '@vercel/analytics';
+const { inject } = require('@vercel/analytics');
  
 inject();
 
