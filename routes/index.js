@@ -440,8 +440,9 @@ router.get("/profiles/:userid/edit", async (req, res, next) => {
 
 //logout
 router.get("/logout", function (req, res) {
-  res.clearCookie("session");
-  res.redirect("/");
+  req.session.destroy(function(){
+    res.redirect('/');
+  });
 });
 
 router.post(
