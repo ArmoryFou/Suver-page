@@ -294,7 +294,11 @@ router.get("/", function (req, res, next) {
   }
 });
 
-const { Client, Intents } = require("discord.js");
+
+
+router.get("/bestmoments", async function (req, res, next) {
+
+  const { Client, Intents } = require("discord.js");
 
 const bot = new Client({
   intents: [
@@ -312,7 +316,6 @@ bot.on("ready", () => {
   console.log(`Logged in as ${bot.user.tag}!`);
 });
 
-router.get("/bestmoments", async function (req, res, next) {
   const channel = await bot.channels.fetch("886466187280662539");
   const messages = await channel.messages.fetch({ limit: 90 });
 
@@ -387,9 +390,11 @@ router.get("/bestmoments", async function (req, res, next) {
       id: req.session.userid,
     });
   }
+
+  bot.login(process.env.DISCORD_TOKEN);
 });
 
-bot.login(process.env.DISCORD_TOKEN);
+
 
 /* GET ooc page. */
 router.get("/ooc", function (req, res, next) {
