@@ -378,7 +378,7 @@ router.get("/bestmoments", async function (req, res, next) {
     });
 });
 
-app.get('/keepalive', (req, res) => {
+router.get('/keepalive', (req, res) => {
   bot.login(process.env.DISCORD_TOKEN);
   res.send('Bot is now online!');
 });
