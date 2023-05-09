@@ -313,62 +313,64 @@ bot.on("ready", () => {
 });
 
 router.get("/bestmoments", async function (req, res, next) {
-  const channel = bot.channels.fetch("886466187280662539");
-  const messages = channel.messages.fetch({ limit: 90 });
+  res.render("loading");
+  try {
+    const channel = await bot.channels.fetch("886466187280662539");
+    const messages = await channel.messages.fetch({ limit: 90 });
 
-  var messageObject = {};
-  await Promise.all(
-    messages.map(async (message) => {
-      const matchImage = message.content.match(
-        /\bhttps?:\/\/\S+\.(png|jpg|jpeg)\b/gi
-      );
-      const matchVideo = message.content.match(
-        /\bhttps?:\/\/\S+\.(gif|mp4)\b/gi
-      );
-      messageObject[message.id] = {
-        text: message.content.replace(/\bhttps?:\/\/\S+\b/gi, ""),
-        date: message.createdAt,
-        media: null,
-        type: null,
-      };
+    var messageObject = {};
+    await Promise.all(
+      messages.map(async (message) => {
+        const matchImage = message.content.match(
+          /\bhttps?:\/\/\S+\.(png|jpg|jpeg)\b/gi
+        );
+        const matchVideo = message.content.match(
+          /\bhttps?:\/\/\S+\.(gif|mp4)\b/gi
+        );
+        messageObject[message.id] = {
+          text: message.content.replace(/\bhttps?:\/\/\S+\b/gi, ""),
+          date: message.createdAt,
+          media: null,
+          type: null,
+        };
 
-      if (matchImage) {
-        messageObject[message.id].media = matchImage[0];
-        messageObject[message.id].type = "image";
-      } else if (matchVideo) {
-        messageObject[message.id].media = matchVideo[0];
-        messageObject[message.id].type = "video";
-      } else {
-        if (message.attachments.size > 0) {
-          const attachment = message.attachments.first();
-          if (
-            attachment.url.endsWith(".jpg") ||
-            attachment.url.endsWith(".jpeg") ||
-            attachment.url.endsWith(".png")
-          ) {
-            messageObject[message.id].media = attachment.url;
-            messageObject[message.id].type = "image";
-          } else if (
-            attachment.url.endsWith(".mp4") ||
-            attachment.url.endsWith(".mov")
-          ) {
-            messageObject[message.id].media = attachment.url;
-            messageObject[message.id].type = "video";
+        if (matchImage) {
+          messageObject[message.id].media = matchImage[0];
+          messageObject[message.id].type = "image";
+        } else if (matchVideo) {
+          messageObject[message.id].media = matchVideo[0];
+          messageObject[message.id].type = "video";
+        } else {
+          if (message.attachments.size > 0) {
+            const attachment = message.attachments.first();
+            if (
+              attachment.url.endsWith(".jpg") ||
+              attachment.url.endsWith(".jpeg") ||
+              attachment.url.endsWith(".png")
+            ) {
+              messageObject[message.id].media = attachment.url;
+              messageObject[message.id].type = "image";
+            } else if (
+              attachment.url.endsWith(".mp4") ||
+              attachment.url.endsWith(".mov")
+            ) {
+              messageObject[message.id].media = attachment.url;
+              messageObject[message.id].type = "video";
+            }
           }
         }
-      }
 
-      if (messageObject[message.id].text.endsWith("?")) {
-        messageObject[message.id].text = messageObject[message.id].text.slice(
-          0,
-          -1
-        );
-      }
-    })
-  );
-  messageObject = Object.fromEntries(
-    Object.entries(messageObject).filter(([key, value]) => value.media)
-  );
+        if (messageObject[message.id].text.endsWith("?")) {
+          messageObject[message.id].text = messageObject[message.id].text.slice(
+            0,
+            -1
+          );
+        }
+      })
+    );
+    messageObject = Object.fromEntries(
+      Object.entries(messageObject).filter(([key, value]) => value.media)
+    );
     res.render("bestmoments", {
       login: req.session.loggedin ? true : false,
       name: req.session.loggedin ? req.session.name : "Login",
@@ -376,6 +378,17 @@ router.get("/bestmoments", async function (req, res, next) {
       moments: messageObject,
       id: req.session.userid,
     });
+  } catch (error) {
+    console.error(error);
+    res.render("error", {
+      login: req.session.loggedin ? true : false,
+      name: req.session.loggedin ? req.session.name : "Login",
+      title: "Error",
+      message: "Error fetching messages.",
+      error: error,
+      id: req.session.userid,
+    });
+  }
 });
 
 router.get('/keepalive', (req, res) => {
