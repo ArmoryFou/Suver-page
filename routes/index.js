@@ -294,11 +294,7 @@ router.get("/", function (req, res, next) {
   }
 });
 
-
-
-router.get("/bestmoments", async function (req, res, next) {
-
-  const { Client, Intents } = require("discord.js");
+const { Client, Intents } = require("discord.js");
 
 const bot = new Client({
   intents: [
@@ -316,6 +312,7 @@ bot.on("ready", () => {
   console.log(`Logged in as ${bot.user.tag}!`);
 });
 
+router.get("/bestmoments", async function (req, res, next) {
   const channel = await bot.channels.fetch("886466187280662539");
   const messages = await channel.messages.fetch({ limit: 90 });
 
@@ -372,95 +369,58 @@ bot.on("ready", () => {
   messageObject = Object.fromEntries(
     Object.entries(messageObject).filter(([key, value]) => value.media)
   );
-
-  if (req.session.loggedin) {
     res.render("bestmoments", {
-      login: true,
-      name: req.session.name,
+      login: req.session.loggedin ? true : false,
+      name: req.session.loggedin ? req.session.name : "Login",
       title: "Best Moments",
       moments: messageObject,
       id: req.session.userid,
     });
-  } else {
-    res.render("bestmoments", {
-      login: false,
-      name: "Login",
-      title: "Best Moments",
-      moments: messageObject,
-      id: req.session.userid,
-    });
-  }
+});
 
+app.get('/keepalive', (req, res) => {
   bot.login(process.env.DISCORD_TOKEN);
+  res.send('Bot is now online!');
 });
 
 
+bot.login(process.env.DISCORD_TOKEN);
 
 /* GET ooc page. */
 router.get("/ooc", function (req, res, next) {
-  if (req.session.loggedin) {
     res.render("ooc", {
-      login: true,
-      name: req.session.name,
+      login: req.session.loggedin ? true : false,
+      name: req.session.loggedin ? req.session.name : "Login",
       title: "Out Of Context",
       id: req.session.userid,
     });
-  } else {
-    res.render("ooc", {
-      login: false,
-      name: "Login",
-      title: "Out Of Context",
-      id: req.session.userid,
-    });
-  }
 });
 
 /* GET demonlist page. */
 router.get("/demonlist", function (req, res, next) {
-  if (req.session.loggedin) {
     res.render("demonlist", {
-      login: true,
-      name: req.session.name,
+      login: req.session.loggedin ? true : false,
+      name: req.session.loggedin ? req.session.name : "Login",
       title: "SuverDemon List",
       id: req.session.userid,
     });
-  } else {
-    res.render("demonlist", {
-      login: false,
-      name: "Login",
-      title: "SuverDemon List",
-      id: req.session.userid,
-    });
-  }
 });
 
 /* GET register page. */
 router.get("/register", function (req, res, next) {
-  if (req.session.loggedin) {
     res.render("register", {
-      login: true,
-      name: req.session.name,
+      login: req.session.loggedin ? true : false,
+      name: req.session.loggedin ? req.session.name : "Login",
       title: "Register",
       id: req.session.userid,
     });
-  } else {
-    res.render("register", {
-      login: false,
-      name: "Login",
-      title: "Register",
-      id: req.session.userid,
-    });
-  }
 });
 
 /* GET login page. */
 router.get("/login", function (req, res, next) {
   if (req.session.loggedin) {
-    res.render("login", {
-      login: true,
-      name: req.session.name,
-      title: "Login",
-      id: req.session.userid,
+    res.render("ErrorHandler", {
+      title: "Login"
     });
   } else {
     res.render("login", {
@@ -475,7 +435,6 @@ router.get("/login", function (req, res, next) {
 /* GET articles page. */
 router.get("/articles/:blog_id", async function (req, res, next) {
   let blog_id = req.params.blog_id;
-
   let blog = await Blog.findOne({
     _id: blog_id,
     function(err, result) {
