@@ -295,6 +295,13 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/bestmoments", async function (req, res, next) {
+  const messageSchema = new mongoose.Schema({
+    media: String,
+    text: String,
+    type: String,
+    createdAt: Date,
+  });
+  
   const Message = mongoose.model("messages", messageSchema);
 
   const messages = await Message.find({});
