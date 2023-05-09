@@ -313,8 +313,8 @@ bot.on("ready", () => {
 });
 
 router.get("/bestmoments", async function (req, res, next) {
-  const channel = await bot.channels.fetch("886466187280662539");
-  const messages = await channel.messages.fetch({ limit: 90 });
+  const channel = bot.channels.fetch("886466187280662539");
+  const messages = channel.messages.fetch({ limit: 90 });
 
   var messageObject = {};
   await Promise.all(
