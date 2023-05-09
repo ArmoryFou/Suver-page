@@ -72,12 +72,8 @@
     <div class="container">
       <h1 class="text-center my-5 title"><%= title %></h1>
       <div class="row">
-        <% 
-        var keysArr = Object.keys(moments);
-        keysArr.forEach(key => { %>
-          <%
-          var moment = moments[key]; 
-          console.log(moment);%>
+        <%
+        moments.forEach(moment => { %>
           <% if (moment.type === "video") { %>
             <div class="col-md-4 mb-4">
               <div class="card h-100">
