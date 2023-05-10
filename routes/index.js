@@ -391,8 +391,6 @@ router.get("/articles/:blog_id", async function (req, res, next) {
     }
   }
 
-  console.log(blog);
-
   if (req.session.loggedin) {
     res.render("articles.ejs", {
       login: true,
