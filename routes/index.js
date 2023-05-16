@@ -306,7 +306,7 @@ router.get("/bestmoments", async function (req, res, next) {
     login: req.session.loggedin ? true : false,
     name: req.session.loggedin ? req.session.name : "Login",
     title: "Best Moments",
-    moments: messageArray,
+    moments: messageArray.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
     id: req.session.userid,
   });
 });
